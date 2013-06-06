@@ -1,0 +1,11 @@
+function x_dot=f_reg(~,x,mu)
+x_dot=zeros(4,1);
+r1=sqrt((x(1)+mu).^2+x(2).^2);
+r2=sqrt((x(1)-1+mu).^2+x(2).^2);
+x_dot(1,1)=x(3);
+x_dot(2,1)=x(4);
+x_dot(3,1)=2*x(4)+x(1)-((1-mu).*(x(1)+mu))./(r1.^3)-(mu.*(x(1)-1+mu))./((r2.^2).^3);
+x_dot(4,1)=-2*x(3)+x(2)-(1-mu).*x(2)./(r1.^3)-(mu*x(2))./(r2.^3);
+g=((1-mu)/(r1.^3)+mu/(r2.^3));
+x_dot=x_dot/g;
+% x_dot=[x_dot(1);x_dot(2);x_dot(3);x_dot(4)]

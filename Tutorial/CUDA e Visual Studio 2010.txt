@@ -1,0 +1,23 @@
+Installazione di CUDA con Visual studio 2010:
+
+Importante: rispettare l'ordine di installazione!
+-Installare Visual Studio 2010
+-Installare CUDA Toolkit
+
+
+Tools-->Options-->text editor-->file extension:
+aggiungere l'estensione .cu nella casella di input, premere ok e riavviare visual studio 2010
+
+
+Impostazioni del progetto:
+
+Il file deve avere estensione .cu
+
+Project-->Build Customization:
+spuntare la voce "CUDA 5.0"
+
+Project-->Properties-->Configuration Properties-->Linker-->input:
+Editare il campo "Additional Dependencies" aggiungendo cudart.lib;
+
+Properties of the .cu file-->General:
+Settare "Item Type" su CUDA C/C++

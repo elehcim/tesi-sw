@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="FTLE_CUDA" />
+		<Option pch_mode="2" />
+		<Option compiler="nvcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/FTLE_CUDA" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="nvcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="/usr/local/lib/libboost_program_options.a" />
+					<Add library="/usr/local/lib/libboost_program_options.so" />
+					<Add directory="/usr/local/cuda-5.0/lib64" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/FTLE_CUDA" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="nvcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="GPU">
+				<Option output="bin/Debug/FTLE_CUDA" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="nvcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="/usr/local/lib/libboost_program_options.a" />
+					<Add library="/usr/local/lib/libboost_program_options.so" />
+					<Add directory="/usr/local/cuda-5.0/lib64" />
+				</Linker>
+			</Target>
+			<Target title="CPU">
+				<Option output="bin/CPU/FTLE_CUDA" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/CPU" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-fopenmp -DTHRUST_DEVICE_BACKEND=THRUST_DEVICE_BACKEND_OMP" />
+				</Compiler>
+				<Linker>
+					<Add option="-lgomp -I /usr/local/cuda-5.0/include" />
+					<Add library="/usr/local/lib/libboost_program_options.a" />
+					<Add library="/usr/local/lib/libboost_program_options.so" />
+					<Add directory="/usr/local/cuda-5.0/lib64" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="src/GPU_info.cu">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="GPU" />
+		</Unit>
+		<Unit filename="src/Lagr.cpp" />
+		<Unit filename="src/Lagrangian_points.h" />
+		<Unit filename="src/Omega.cpp" />
+		<Unit filename="src/P5_roots.cpp" />
+		<Unit filename="src/Phase_point.h" />
+		<Unit filename="src/RUN.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="CPU" />
+		</Unit>
+		<Unit filename="src/RUN.cu">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="GPU" />
+		</Unit>
+		<Unit filename="src/configuration_load.cpp" />
+		<Unit filename="src/create_ic_vector.cpp" />
+		<Unit filename="src/create_integration_vector.cpp" />
+		<Unit filename="src/create_missing_vector.cpp" />
+		<Unit filename="src/er3bp_system.hpp" />
+		<Unit filename="src/global_var.hpp" />
+		<Unit filename="src/id_calc.cpp" />
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/print_tracers.cpp" />
+		<Unit filename="src/tracers.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="CPU" />
+		</Unit>
+		<Unit filename="src/tracers.cu">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="GPU" />
+		</Unit>
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

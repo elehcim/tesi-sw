@@ -1,0 +1,9 @@
+Nel caso in cui siano necessarie solamente Header-only Libraries (la maggior parte delle librerie boost sono di questo tipo), la procedura è molto semplice:
+
+
+Da Visual studio -->Configuration Properties-->C/C++ -->General --> Additional Include Directories:
+inserire percorso della directory di boost, per esempio: 
+
+    C:\Program Files\boost\boost_1_53_0
+Configuration Properties -->C/C++ --> Precompiled Headers
+cambiare la voce "Use Precompiled Headers(/Yu)" in "Not Using Precompiled Headers"

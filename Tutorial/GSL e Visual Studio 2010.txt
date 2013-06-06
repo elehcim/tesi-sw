@@ -1,0 +1,37 @@
+
+Compilare le librerie GSL per Visual Studio 2010:
+
+- Scaricare ed estrarre i sorgenti di gsl
+
+- Lanciare Visual Studio 2010
+- Aprire la soluzione libgsl.sln che si trova nella cartella gsl-1.8-src\src\gsl\1.8\gsl-1.8\VC8\
+- Eseguire la procedura di conversione automatica con le impostazioni di default
+- Verificare che siano state create dei nuovi file dll all'interno delle cartelle gsl-1.8-src\src\gsl\1.8\gsl-1.8\VC8\libgsl\Debug-DLL e gsl-1.8-src\src\gsl\1.8\gsl-1.8\VC8\libgslcblas\Debug-DLL
+
+Impostare il progetto di Visual Studio per usare le librerie GSL:
+
+- Lanciare Visual Studio 2010;
+- Aprire il progetto
+- Progetto-->Proprietà-->Configuration Properties-->VC++ directories
+Sulla destra editare il campo "Executable Directories". Inserire una nuova linea e inserire i percorsi delle seguenti cartelle:
+gsl-1.8-src\src\gsl\1.8\gsl-1.8\VC8\libgsl\Debug-DLL
+gsl-1.8-src\src\gsl\1.8\gsl-1.8\VC8\libgslcblas\Debug-DLL
+
+Con lo stesso procedimento editare i seguenti campi:
+
+Campo "Include Directories":
+gsl-1.8-src\src\gsl\1.8\gsl-1.8
+
+Campo "Library Directories":
+gsl-1.8-src\src\gsl\1.8\gsl-1.8\VC8\libgsl\Debug-DLL
+gsl-1.8-src\src\gsl\1.8\gsl-1.8\VC8\libgslcblas\Debug-DLL
+
+-Progetto-->Proprietà-->Configuration Properties-->Linker-->input
+Sulla destra editare il campo "Additional Dependencies" e aggiungere:
+libgsl_dll_d.lib
+libgslcblas_dll_d.lib
+
+-Progetto-->Proprietà-->Configuration Properties-->C/C++ -->Preprocessor
+Editare il campo "Preprocessor Definitions" e inserire:
+GSL_DLL
+

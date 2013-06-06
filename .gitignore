@@ -1,0 +1,67 @@
+# Backups
+*.asv
+*~
+
+# Folders and files not desiderable
+var_*
+MatlabScripts/extra
+FTLE_Matlab/ER3BP/Figure/Figure*
+FTLE_Matlab/ER3BP/Figure/Video
+# FTLE_Matlab/Compilation/Test\ for\ compilation
+FTLE_Matlab/Compilation/
+
+Tracers/*.fig
+
+# Executables
+*bin/
+
+# Data file
+ris_int*
+Results/
+*data/
+*figs/
+data_for_the_history/
+tracers.txt
+ftle_ell_mu=*
+data[23]d_mu=*
+DATA[23]d_*
+tracers_mu=*
+
+# CodeBlocks specific files
+*.depend
+*.layout
+*.cbTemp
+*.ilk
+#*.obj
+*.pdb
+obj/
+
+
+# Tutorial folder
+#Tutorial/*.log
+#Tutorial/*.aux
+#Tutorial/*.out
+
+# Track these
+!CUDA/FTLE_CUDA/FTLE_CUDA.cbp
+!FTLE_CPU/FTLE_CPU.cbp
+
+# Latex
+*.log
+*.aux
+*.out
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.exe
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="FTLE_CPU" />
+		<Option pch_mode="2" />
+		<Option compiler="nvcc" />
+		<Build>
+			<Target title="CPU">
+				<Option output="bin/CPU/FTLE_CPU" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/CPU" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-lgomp" />
+					<Add library="\usr\local\lib\libboost_program_options.a" />
+					<Add library="\usr\local\lib\libboost_program_options.so" />
+					<Add directory="/usr/local/cuda-5.0/lib64" />
+				</Linker>
+			</Target>
+			<Target title="Linux">
+				<Option output="bin/Linux/FTLE_CPU_x86_64" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Linux" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-g" />
+					<Add option="-fopenmp" />
+				</Compiler>
+				<Linker>
+					<Add option="-lgomp" />
+					<Add library="\usr\local\lib\libboost_program_options.a" />
+					<Add library="\usr\local\lib\libboost_program_options.so" />
+					<Add directory="/usr/local/cuda-5.0/lib64" />
+				</Linker>
+			</Target>
+			<Target title="Win">
+				<Option output="bin/WIN/FTLE_CPU_WIN" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/WIN" />
+				<Option type="1" />
+				<Option compiler="msvc10" />
+				<Compiler>
+					<Add option="/O2" />
+					<Add option="/w" />
+					<Add option="/openmp" />
+					<Add option="/EHsc" />
+					<Add directory="C:/C++ libraries/boost_1_53_0" />
+				</Compiler>
+				<Linker>
+					<Add library="C:\C++ libraries\boost_1_53_0\bin.v2\libs\program_options\build\msvc-10.0\release\link-static\runtime-link-static\threading-multi\libboost_program_options-vc100-mt-s-1_53.lib" />
+					<Add library="C:\C++ libraries\gsl-1.15\build.vc10\lib\Win32\Release\gsl.lib" />
+					<Add library="C:\C++ libraries\gsl-1.15\build.vc10\lib\Win32\Release\cblas.lib" />
+					<Add directory="C:/C++ libraries/boost_1_53_0/libs" />
+					<Add directory="C:/C++ libraries/boost_1_53_0/bin.v2/libs" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="src/Lagr.cpp" />
+		<Unit filename="src/Lagrangian_points.h" />
+		<Unit filename="src/Omega.cpp" />
+		<Unit filename="src/P5_roots.cpp" />
+		<Unit filename="src/Phase_point.h" />
+		<Unit filename="src/RUN.cpp">
+			<Option target="CPU" />
+		</Unit>
+		<Unit filename="src/RUN_omp.cpp">
+			<Option target="Linux" />
+			<Option target="Win" />
+		</Unit>
+		<Unit filename="src/configuration_load.cpp" />
+		<Unit filename="src/create_ic_vector.cpp" />
+		<Unit filename="src/create_missing_vector.cpp" />
+		<Unit filename="src/global_var.hpp" />
+		<Unit filename="src/id_calc.cpp" />
+		<Unit filename="src/launch_matlab.cpp" />
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/type_definitions.hpp" />
+		<Unit filename="src/write_file.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

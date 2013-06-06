@@ -1,0 +1,21 @@
+FIXME
+ sudo apt-get install codeblocks
+  750  sudo apt-get install libgsl
+  753  ./bootstrap.sh --help
+  754  ./bootstrap.sh 
+  756  sudo ./b2 install
+  757  ps - aux
+  758  ps -aux
+  759  sudo reboot
+  760  ./avvia_nvidia 
+  761  sudo ./avvia_nvidia 
+  762  gedit avvia_nvidia 
+  763  sudo mv gcc.hpp gcc.hpp.old
+  764  sudo cp ~/Dropbox/Tesi/gcc.hpp .
+  765  sudo mv gcc.hpp.old gcc.hpp
+  766  cd ..
+  767  cd /usr/local/include/boost/config/compiler/
+  768  sudo cp ~/Dropbox/Tesi/gcc.hpp .
+  769  nvidia-smi -a
+  770  cd
+  771  history

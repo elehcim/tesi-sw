@@ -1,0 +1,19 @@
+function [integrated_tracers]=integrate_tracers(tr)
+options=odeset('AbsTol',1e-12,'RelTol',1e-12);
+for i=1:tr.n_tracers
+	fprintf('Integrating tracer n. %i\n',i)
+	[t0,Y0]=ode45(...
+		@f_ell,...
+		[tr.t0 tr.T],...
+		[tr.x(i); tr.y(i); tr.vx(i); tr.vy(i)],...
+		options,...
+		tr.mu,...
+		tr.ecc);
+	trajectories{i,1}=Y0;
+	trajectories{i,2}=t0;
+% 	trajectories.(['t' num2str(i)])=t0;
+% 	trajectories.(['Y' num2str(i)])=Y0;
+end
+%TODO add energy paramenter
+% integrated_tracers.e=0.5*(tr.vx.^2+tr.vy.^2)-(Omega(tr.x,tr.y,tr.mu)/(1+tr.ecc*cos(tr.t0)));
+integrated_tracers=trajectories;

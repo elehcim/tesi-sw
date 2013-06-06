@@ -1,0 +1,43 @@
+-Installare Visual Studio express 2010
+-Installare Microsoft SDKs
+-Installare Code::Blocks
+
+Impostare Code::Blocks con il compilatore Visual c++2010
+
+Al primo avvio di Code::Blocks, questo dovrebbe rilevare automaticamente i compilatori presenti.
+Nel caso non lo facesse, o CODE::Blocks è già stato avviato in pecedenza: 
+	-Settings-->Compiler->> scegliere Microsoft Visual C++ dalla prima tendina.
+	-Selezionare tab "Toolchain executable" e scegliere auto-detect per avviare la procedura automatica. Se questa non andasse a buon fine è necessario impostare manualmente la cartella nella quale si trova la cartella bin che a sua volta contiene il compilatore (cl.exe) che di default è: C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC
+
+	-Se non già rilevati automaticamente, impostare i seguenti campi:
+		C compiler: cl.exe
+		C++ compiler: cl.exe
+		linker for dynamic libs: link.exe
+		linker for static libs: link.exe
+		Debugger: cdb
+		Resource compiler: rc.exe
+		Make program: nmake.exe
+
+Nella scheda "Additional Paths" aggiungere i seguenti percorsi:
+C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE
+C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A
+C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin
+
+Nella scheda "Search directories" aggiungere i seguenti percorsi:
+
+	scheda "Compiler":
+	C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include
+	C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Include
+
+	scheda "Linker":
+	C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\lib
+	C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Lib
+
+	scheda "Resource compiler":
+	C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include
+	C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Include
+
+
+
+Nel caso ci sia un errore di tipo unresolved external symbol __free__dbg includere nel progetto:
+#include <crtdbg.h>
