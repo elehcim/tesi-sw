@@ -1,5 +1,7 @@
 function [X,Y]=r_syn2in(x,y,nu, a,e)
 % Transform the synodic position coordinate to the inertial positions
+% a,e are the semimajor axis and the eccentricity of the orbit of one
+% primary with respect to the other
 %% Distance between primaries
 r = a*(1-e^2)/(1+e*cos(nu));
 
