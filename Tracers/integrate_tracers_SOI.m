@@ -1,5 +1,8 @@
 function [integrated_tracers]=integrate_tracers_SOI(tr)
-options=odeset('AbsTol',1e-12,'RelTol',1e-12,'Events',@(t,y)(reach_SOI(t,y,tr.mu)));
+a_jup = 778412027; % km
+ecc_jup = 0.04839266;
+p=a_jup*(1-ecc_jup^2);
+options=odeset('AbsTol',1e-12,'RelTol',1e-12,'Events',@(t,y)(reach_SOI(t,y,tr.mu,tr.ecc,p)));
 for i=1:tr.n_tracers
 	fprintf('Integrating tracer n. %i\n',i)
 	[t,Y]=ode45(...
@@ -14,8 +17,10 @@ for i=1:tr.n_tracers
 end
 integrated_tracers=traj;
 
-function [value,isterminal,direction]=reach_SOI(t,y,mu)
+function [value,isterminal,direction]=reach_SOI(t,y,mu,ecc,p)
 %tol = 1e-5;
-value=sqrt((y(1)-(1-mu))^2+y(2)^2)-0.0619; %FIXME increase precision
+L=p/(1+ecc*cos(t));
+r_SOI=48223000/L; % around 0.0619
+value=sqrt((y(1)-(1-mu))^2+y(2)^2)-r_SOI;
 isterminal = 1;
 direction = 0;
