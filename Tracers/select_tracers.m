@@ -28,12 +28,13 @@ if ~exist('fig_file','var')
 end
 [~,fig_file_name,~]=fileparts(fig_file);
 fig=openfig(fullfile(PathName,fig_file));
+%% Put in the figure UserData field the param_struc structure.
 set(gcf, 'Renderer', 'zbuffer');
 param_struc=get(fig,'UserData');
-%% get image coordinates
-h=get(gca);
-coord_x=get(h.XLabel,'String');
-coord_y=get(h.YLabel,'String');
+% %% get image coordinates
+% h=get(gca);
+% coord_x=get(h.XLabel,'String');
+% coord_y=get(h.YLabel,'String');
 %% Select tracers
 hold on
 % Initially, the list of points is empty.
