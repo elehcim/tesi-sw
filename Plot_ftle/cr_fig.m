@@ -48,8 +48,8 @@ if ~exist('working_dir','var') %
 		working_dir=[folder 'FTLE_CPU/bin/WIN/'];
 	else
 		% working_dir=[folder 'C++/FTLE_CPU/bin/Linux/'];
-		% working_dir=[folder 'FTLE_CPU/bin/Linux/'];
-		working_dir=['/home/michele/Scrivania/1-giu/'];
+		 working_dir=[folder 'FTLE_CPU/bin/Linux/'];
+		%working_dir=['/home/michele/Scrivania/1-giu/'];
 		% working_dir=[folder 'FTLE_CPU/bin/WIN/'];
 		% working_dir='/home/michele/Scrivania/tests/uitest/';
 	end
