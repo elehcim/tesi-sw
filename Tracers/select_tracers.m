@@ -1,5 +1,9 @@
 function [tr]=select_tracers(varargin)
-% select_tracers
+% Select tracers from a fig file.
+% It's possible to pass a string containing the path to a fig file that 
+% will be the input.
+% Can accept a directory that will be the working directory for uigetfile.
+%% Parse input
 if length(varargin)>1
 	error('too many arguments')
 elseif length(varargin)==1
