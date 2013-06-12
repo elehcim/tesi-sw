@@ -10,7 +10,6 @@ for i=1:tr.n_tracers
 	traj{i,1}=Y;
 	traj{i,2}=t;
 	% Add energy column
-	%keyboard
 	traj{i,1}(:,5)=0.5*(Y(:,3).^2+Y(:,4).^2)-(Omega(Y(:,1),Y(:,2),tr.mu)./(1+tr.ecc*cos(t)));
 end
 integrated_tracers=traj;
