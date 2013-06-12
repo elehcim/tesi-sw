@@ -84,7 +84,7 @@ tr=complete_tracers(tr);
 
 %% save data
 time_stamp=clock;
-clo=sprintf('%02.0f%02.0f%02.0f',time_stamp(4),time_stamp(5),time_stamp(6));
+clo=sprintf('%04d%02d%02d-%02.0f%02.0f%02.0f',time_stamp(1),time_stamp(2),...
+	time_stamp(3),time_stamp(4),time_stamp(5),time_stamp(6));
 data_name=[fig_file_name '_tracers_' clo];
 save(data_name,'tr')
-
