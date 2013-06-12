@@ -2,18 +2,17 @@ function [integrated_tracers]=integrate_tracers(tr)
 options=odeset('AbsTol',1e-12,'RelTol',1e-12);
 for i=1:tr.n_tracers
 	fprintf('Integrating tracer n. %i\n',i)
-	[t0,Y0]=ode45(...
+	[t,Y]=ode45(...
 		@f_ell,...
-		[tr.t0 tr.T],...
+		[tr.t0 tr.t0+tr.T],...
 		[tr.x(i); tr.y(i); tr.vx(i); tr.vy(i)],...
 		options,...
 		tr.mu,...
 		tr.ecc);
-	trajectories{i,1}=Y0;
-	trajectories{i,2}=t0;
-% 	trajectories.(['t' num2str(i)])=t0;
-% 	trajectories.(['Y' num2str(i)])=Y0;
+	traj{i,1}=Y;
+	traj{i,2}=t;
+	% Add energy column
+	%keyboard
+	traj{i,1}(:,5)=0.5*(Y(:,3).^2+Y(:,4).^2)-(Omega(Y(:,1),Y(:,2),tr.mu)./(1+tr.ecc*cos(t)));
 end
-%TODO add energy paramenter
-% integrated_tracers.e=0.5*(tr.vx.^2+tr.vy.^2)-(Omega(tr.x,tr.y,tr.mu)/(1+tr.ecc*cos(tr.t0)));
-integrated_tracers=trajectories;
+integrated_tracers=traj;
