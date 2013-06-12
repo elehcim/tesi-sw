@@ -7,7 +7,7 @@ r = a*(1-e^2)/(1+e*cos(nu));
 
 %% Bring to not rotating frame (Kolomaro pag. 27, formula 2.3.1)
 x_prime = x * cos(nu) - y * sin(nu);
-y_prime = x * sin(nu) + x * cos(nu);
+y_prime = x * sin(nu) + y * cos(nu);
 
 %% Dimensionalize
 X = x_prime*r;
