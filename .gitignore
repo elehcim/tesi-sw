@@ -12,8 +12,11 @@ FTLE_Matlab/Compilation/
 FTLE_Matlab/CPU/FTLE/Masdemont/Masdemont_n100_tol1e-6.fig
 FTLE_Matlab/CPU/IntegratorC++/300.fig
 
+# Tracers
 Tracers/*.fig
 Tracers/*.mat
+#Tracers/plot_integrated_tracers/txt/
+Tracers/plot_integrated_tracers/
 
 # Data file
 ris_int*
