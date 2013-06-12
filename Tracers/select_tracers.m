@@ -27,7 +27,7 @@ if ~exist('fig_file','var')
 	end
 end
 [~,fig_file_name,~]=fileparts(fig_file);
-fig=openfig(fig_file);
+fig=openfig(fullfile(PathName,fig_file));
 set(gcf, 'Renderer', 'zbuffer');
 param_struc=get(fig,'UserData');
 %% get image coordinates
