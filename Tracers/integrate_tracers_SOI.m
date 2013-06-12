@@ -16,6 +16,6 @@ integrated_tracers=traj;
 
 function [value,isterminal,direction]=reach_SOI(t,y,mu)
 %tol = 1e-5;
-value=sqrt((y(1)-(1-mu))^2+y(2)^2)-0.0619;
+value=sqrt((y(1)-(1-mu))^2+y(2)^2)-0.0619; %FIXME increase precision
 isterminal = 1;
 direction = 0;
