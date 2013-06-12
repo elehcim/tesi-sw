@@ -25,9 +25,12 @@ if ~exist('fig_file','var')
 		[fig_file, PathName]=uigetfile...
 			('*.fig','Select FTLE figure');
 	end
+	fig_file=fullfile(PathName,fig_file);
 end
+
 [~,fig_file_name,~]=fileparts(fig_file);
-fig=openfig(fullfile(PathName,fig_file));
+fig=openfig(fig_file);
+
 %% Put in the figure UserData field the param_struc structure.
 set(gcf, 'Renderer', 'zbuffer');
 param_struc=get(fig,'UserData');
