@@ -1,7 +1,7 @@
 function dv = deiperbolize(x,y,vx,vy,mu,ni,ecc,a)
-% Take absolute velocities and returns delta v required to make the orbit
-% closed around the primary (first elliptic orbit of Galileo Mission taken 
-% as a reference).
+% Take absolute velocities and returns delta v required to close the orbit
+% around the primary (first elliptic orbit of Galileo Mission taken as a 
+% reference).
 %  * (x, y) is the position of the S/C in the inertial reference system
 %  * (vx, vy) is the velocity of the S/C in the inertial reference system
 %  * mu is the gravitational parameter of the target planet
