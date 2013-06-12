@@ -1,21 +1,22 @@
 function new_tr=complete_tracers(tr)
 % Complete the tracers' missing field
 
-% see if is missing some field
+%% see if some field is missing
 vars={'x','y','vx','vy','e'};
-first_tracer=[tr.x(1) tr.y(1) tr.vx(1) tr.vy(1) tr.e(1)];
 a=isfield(tr,vars);
 if sum(a)<4
 	error('I can''t complete the tracer structure')
-
 elseif sum(a)==4
-	index=find(a==0);
+	ind=find(a==0);
+	tr.(vars{ind})=nan(1,tr.n_tracers);
+end
 
-elseif any(isnan(first_tracer))
+%% Complete tracers' structure
+first_tracer=[tr.x(1) tr.y(1) tr.vx(1) tr.vy(1) tr.e(1)];
+if any(isnan(first_tracer))
 	% see if the field is NaN
 	index=find(isnan(first_tracer));
-	
-elseif sum(a)==5
+else
 	warning('Nothing to complete')
 	return
 end
