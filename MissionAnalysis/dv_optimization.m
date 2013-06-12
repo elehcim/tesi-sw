@@ -40,4 +40,5 @@ for j=1:tr.n_tracers
 		traj{j}(end,3),traj{j}(end,4),nu(j), a_jup, ecc_jup, jup_grav_par);
 	dv_jup_inj(j)=deiperbolize(x,y,vx,vy,jup_grav_par,nu(j),ecc_jup,a_jup);
 end
+dv_jup_inj
 %% plot orbit
