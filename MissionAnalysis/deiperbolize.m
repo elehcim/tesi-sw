@@ -1,4 +1,4 @@
-function [dv, ERR]= deiperbolize(x,y,vx,vy,mu_jup,ni,ecc,a)
+function [dv, ERR]= deiperbolize(x,y,vx,vy,mu_jup,ni,e_jup,a_jup)
 % Take absolute velocities and returns delta v required to close the orbit
 % around the primary (first elliptic orbit of Galileo Mission taken as a 
 % reference).
@@ -8,9 +8,9 @@ function [dv, ERR]= deiperbolize(x,y,vx,vy,mu_jup,ni,ecc,a)
 % FIXME ERR output should disappear, now it's only for debug
 mu_sun=132712439935; % km^3/s^2
 
-p = a*(1-ecc^2);
-r = p/(1+ecc*cos(ni));
-r_jup_bar= r * mu_sun/(mu_sun+mu_jup);
+p = a_jup*(1-e_jup^2);
+r_jup = p/(1+e_jup*cos(ni));
+r_jup_bar= r_jup * mu_sun/(mu_sun+mu_jup);
 x_planet = r_jup_bar * cos(ni);
 y_planet = r_jup_bar * sin(ni);
 x_rel = x - x_planet;
@@ -21,7 +21,7 @@ dist=sqrt(x_rel^2+y_rel^2);
 ERR=dist-JupSOI;
 
 vx_planet=sqrt(mu_sun/p)*(-sin(ni));
-vy_planet=sqrt(mu_sun/p)*(ecc+cos(ni));
+vy_planet=sqrt(mu_sun/p)*(e_jup+cos(ni));
 
 vx_rel=vx-vx_planet;
 vy_rel=vy-vy_planet;
@@ -47,10 +47,11 @@ vp_hyp=sqrt(mu_jup * (2/rp_hyp - 1/a_hyp));
 % Impulse at periapse similar to Galileo Mission
 % rp=a*(1-e)
 
-rp = 4*jup_radius; % perijove (km)
-ra = (sqrt(419^2+290^2)/208)*100*jup_radius; % apojove (km)
+rp_ell = 4*jup_radius; % perijove (km)
+ra_ell = (sqrt(419^2+290^2)/208)*100*jup_radius; % apojove (km)
 
-a_ell = rp/(1-((ra-rp)/(ra+rp)));
-vp_ell=sqrt(mu_jup*(2/rp-1/a_ell));
+a_ell = rp_ell/(1-((ra_ell-rp_ell)/(ra_ell+rp_ell)));
+vp_ell=sqrt(mu_jup*(2/rp_ell-1/a_ell));
 
 dv_perigee=vp_ell-vp_hyp;
+
