@@ -1,5 +1,6 @@
-function plot_traj(tr,traj)
-for i=1:tr.n_tracers
+function plot_traj(mu,traj)
+n=length(traj);
+for i=1:n
 	hold all
 	plot(traj{i,1}(:,1),traj{i,1}(:,2))
 	leg{i}=sprintf('tracer %d',i);
@@ -7,15 +8,15 @@ end
 legend(leg)
 
 % Initial and final points
-for i=1:tr.n_tracers
+for i=1:n
 plot(traj{i,1}(1,1),traj{i,1}(1,2),'sg')
 plot(traj{i,1}(end,1),traj{i,1}(end,2),'sr')
 end
 %% Plot first primary not in scale
-plot(-tr.mu,0,'ok','MarkerSize',5)
+plot(-mu,0,'ok','MarkerSize',5)
 
 %% Plot second primary center
-plot(1-tr.mu,0,'+k')
+plot(1-mu,0,'+k')
 axis equal
 xlabel('$x$','fontsize',20,'interpreter','latex')
 ylabel('$y$','fontsize',20,'interpreter','latex')
