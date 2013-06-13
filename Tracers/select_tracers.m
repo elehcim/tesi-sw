@@ -31,7 +31,7 @@ end
 [~,fig_file_name,~]=fileparts(fig_file);
 fig=openfig(fig_file);
 
-%% Put in the figure UserData field the param_struc structure.
+%% Get the param_struc structure in the figure UserData field.
 set(gcf, 'Renderer', 'zbuffer');
 param_struc=get(fig,'UserData');
 % %% get image coordinates
