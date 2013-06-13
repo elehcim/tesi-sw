@@ -1,6 +1,6 @@
 % generate a set of tracers starting for x=-0.1922 and y=0 inside the LCS
 % of energy e=-1.35 in the Sun-Jupiter system
-clear all
+clearvars
 n=5;
 tr.n_tracers=n;
 tr.x=-0.1922*ones(1,n);
