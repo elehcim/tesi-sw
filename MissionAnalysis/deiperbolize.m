@@ -25,6 +25,8 @@ vy_planet=sqrt(mu_sun/p)*(e_jup+cos(ni));
 
 vx_rel=vx-vx_planet;
 vy_rel=vy-vy_planet;
+
+%% Compute hyperbola orbital parameters
 v_excess=sqrt(vx_rel^2+vy_rel^2);
 %dv=v_excess;
 
@@ -44,14 +46,27 @@ if rp_hyp < jup_radius
 	return
 end
 vp_hyp=sqrt(mu_jup * (2/rp_hyp - 1/a_hyp));
-% Impulse at periapse similar to Galileo Mission
-% rp=a*(1-e)
 
-rp_ell = 4*jup_radius; % perijove (km)
-ra_ell = (sqrt(419^2+290^2)/208)*100*jup_radius; % apojove (km)
+%% Compute target ellipse orbital parameters
+rp_target = 4*jup_radius; % perijove (km)
+ra_target = (sqrt(419^2+290^2)/208)*100*jup_radius; % apojove (km)
 
-a_ell = rp_ell/(1-((ra_ell-rp_ell)/(ra_ell+rp_ell)));
-vp_ell=sqrt(mu_jup*(2/rp_ell-1/a_ell));
+a_target = rp_target/(1-((ra_target-rp_target)/(ra_target+rp_target)));
+%vp_target = sqrt(mu_jup*(2/rp_target-1/a_target));
+va_target = sqrt(mu_jup*(2/ra_target-1/a_target));
 
-dv_perigee=vp_ell-vp_hyp;
+%% Compute transfer ellipse orbital parameters
+rp_ell_1 = rp_hyp;
+ra_ell_1 = ra_target;
+a_ell_1 = rp_ell_1/(1-((ra_ell_1-rp_ell_1)/(ra_ell_1+rp_ell_1)));
+vp_ell_1 = sqrt(mu_jup*(2/rp_ell_1-1/a_ell_1));
+va_ell_1 = sqrt(mu_jup*(2/ra_ell_1-1/a_ell_1));
 
+%% First burn
+dv_perigee = vp_ell_1 - vp_hyp;
+
+%% Second burn
+dv_apogee = va_target - va_ell_1;
+
+%% Total
+dv = abs(dv_perigee) + abs(dv_apogee);
