@@ -1,16 +1,14 @@
-function [X_dot,Y_dot]=v_syn2in(x,y,vx,vy,nu, a,e, grav_par)
-% Transform the synodic velocity to the inertial velocity
-% pag. 5  Gurfil and Meltzer
-% "Stationkeeping: Generalization to the Elliptic Restricted Three-Body Problem"
-p = a*(1-e^2);
-%{
-% First version
-r = p/(1+e*cos(nu));
-r_prime = p*e*sin(nu)/(1+e*cos(nu))^2;
-nu_dot = sqrt(grav_par) / (p^(3/2))*(1+e*cos(nu))^2;
-X_dot = nu_dot* ( r_prime*x + r*vx );
-Y_dot = nu_dot* ( r_prime*y + r*vy );
-%}
+function [X_dot,Y_dot]=v_syn2in(x, y, vx, vy, f, a, e, mu_sun)
+% Transform the synodic velocity to the inertial velocity. x, y, vx, vy are
+% all relative to the synodic frame.
 
-X_dot = sqrt(grav_par/p)*(e*sin(nu)*x + (1+e*cos(nu))*vx);
-Y_dot = sqrt(grav_par/p)*(e*sin(nu)*y + (1+e*cos(nu))*vy);
+p = a*(1-e^2);
+
+r = p/(1+e*cos(f));
+
+f_dot = sqrt(mu_sun/(p^3))*(1+e*cos(f))^2;
+
+X_dot = f_dot * r * (e*sin(f)/(1+e*cos(f))*(x*cos(f)-y*sin(f))+...
+	(vx-y)*cos(f)-(x+vy)*sin(f));
+Y_dot = f_dot * r * (e*sin(f)/(1+e*cos(f))*(x*sin(f)+y*cos(f))+...
+	(vx-y)*sin(f)-(x+vy)*cos(f));
