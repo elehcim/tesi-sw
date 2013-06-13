@@ -1,4 +1,4 @@
-function [dv, ERR]= deiperbolize(x,y,vx,vy,mu_jup,ni,e_jup,a_jup)
+function dv = deiperbolize(x,y,vx,vy,mu_jup,ni,e_jup,a_jup)
 % Take absolute velocities and returns delta v required to close the orbit
 % around the primary (first elliptic orbit of Galileo Mission taken as a 
 % reference).
@@ -16,9 +16,9 @@ y_planet = r_jup_bar * sin(ni);
 x_rel = x - x_planet;
 y_rel = y - y_planet;
 % Test Jupiter SOI is 48223000 i.e. 4.822e7
-JupSOI=48223000;
-dist=sqrt(x_rel^2+y_rel^2);
-ERR=dist-JupSOI;
+% JupSOI=48223000;
+% dist=sqrt(x_rel^2+y_rel^2);
+% ERR=dist-JupSOI;
 
 vx_planet=sqrt(mu_sun/p)*(-sin(ni));
 vy_planet=sqrt(mu_sun/p)*(e_jup+cos(ni));
@@ -36,7 +36,6 @@ h=h_vec(3);
 a_hyp = -mu_jup/v_excess.^2;
 
 e_hyp = sqrt(1 - h^2/(mu_jup*a_hyp));
-%delta_ecc=e_hyp-1
 
 rp_hyp=a_hyp*(1-e_hyp);
 jup_radius=71492; % km !! Equatorial Radius !!
