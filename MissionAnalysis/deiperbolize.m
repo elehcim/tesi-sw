@@ -37,15 +37,20 @@ e_hyp = sqrt(1 - h^2/(mu_jup*a_hyp));
 %delta_ecc=e_hyp-1
 
 rp_hyp=a_hyp*(1-e_hyp);
+jup_radius=71492; % km !! Equatorial Radius !!
+
+if rp_hyp < jup_radius
+	dv=NaN;
+	return
+end
 vp_hyp=sqrt(mu_jup * (2/rp_hyp - 1/a_hyp));
 % Impulse at periapse similar to Galileo Mission
 % rp=a*(1-e)
 
-jup_radius=71492; % km
 rp = 4*jup_radius; % perijove (km)
-ra = (sqrt(419^2+290^2)/208)*100*jup_radius; %apojove (km)
+ra = (sqrt(419^2+290^2)/208)*100*jup_radius; % apojove (km)
 
 a_ell = rp/(1-((ra-rp)/(ra+rp)));
 vp_ell=sqrt(mu_jup*(2/rp-1/a_ell));
 
-dv=vp_ell-vp_hyp;
+dv_perigee=vp_ell-vp_hyp;
