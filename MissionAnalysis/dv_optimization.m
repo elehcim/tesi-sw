@@ -9,7 +9,7 @@ ecc_jup = 0.04839266;
 %% Select tracers
 %tr=select_tracers('../Tracers/Sun_Jupiter_t=220_little.fig');
 %load Sun_Jupiter_t=220_little_tracers_20130612-222805.mat
-tr=tracers_grid_SJ_little
+tr=tracers_grid_SJ_little;
 %% Escape from earth
 %TODO
 
@@ -55,7 +55,7 @@ for j=1:tr.n_tracers
 end
 dv_jup_inj
 %% choose the min dv and plot that traj
-index=find(dv_jup_inj==min(dv_jup_inj));
+index=find(dv_jup_inj==min(dv_jup_inj))
 %% Plot trajectories
 figure
 plot_traj(tr.mu,traj(index))
