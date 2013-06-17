@@ -62,10 +62,10 @@ vp_ell_1 = sqrt(mu_jup*(2/rp_ell_1-1/a_ell_1));
 va_ell_1 = sqrt(mu_jup*(2/ra_ell_1-1/a_ell_1));
 
 %% First burn
-dv_perigee = vp_ell_1 - vp_hyp;
+dv_perijove = vp_ell_1 - vp_hyp;
 
 %% Second burn
-dv_apogee = va_target - va_ell_1;
+dv_apojove = va_target - va_ell_1;
 
 %% Total
-dv = abs(dv_perigee) + abs(dv_apogee);
+dv = abs(dv_perijove) + abs(dv_apojove);
