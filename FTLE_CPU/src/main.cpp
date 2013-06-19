@@ -23,14 +23,18 @@ int main ()
             std::cout<<"frame created\n";
             t0=t0+dt;
         }
+        #ifdef _WIN32
         printf("Press Enter key to end");
         getchar();
+        #endif // Only for Windows
         return 0;
     }
     else
     {
+        #ifdef _WIN32
         printf("Press Enter key to end");
         getchar();
+        #endif // Only for Windows
         return 1;
     }
 
