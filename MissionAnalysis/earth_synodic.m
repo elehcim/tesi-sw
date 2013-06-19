@@ -4,7 +4,7 @@ function [x,y]=earth_synodic(f, mu, a, e, omega, R)
 % Earth
 % * mu: Sun grav par
 % * a, e: Jupiter orbital parameters
-% * omega: earth orbital mean angular speed (its orbit is circular
+% * omega: earth orbital mean angular speed (its orbit is circular)
 % * R: 1 AU
 
 E= 2* atan(sqrt((1-e)/(1+e))*tan(f/2)); % Eccentric anomaly Proussing formula
