@@ -71,6 +71,7 @@ for i=1:n_frames
 	if flags.save_fig
 		% remove extension and save
 		[~,save_fig_name,~]=fileparts(param_struc.file_name);
+		set(h(i),'UserData',param_struc)
 		hgsave(h(i),[flags.output_dir,save_fig_name,'.fig'])
 	end
 end
