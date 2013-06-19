@@ -9,7 +9,7 @@ else
 			strcmp(line,'### Beginning of data ###') ||...
 			feof(fid))
 		tmp=textscan(line,'%s %f','Delimiter','=');
-		if isempty(tmp{1,2})
+		if isempty(tmp{1,2}) % If it's a string
 			param{nl}=textscan(line,'%s %s','Delimiter','=');
 			param_struc.(param{nl}{1}{1})=param{nl}{2}{1};
 		else
