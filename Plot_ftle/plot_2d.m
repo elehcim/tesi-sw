@@ -31,6 +31,10 @@ if flags.spikes
 end
 % TODO insert flags.ftle
 
+%% Remove zeros
+ftle_matrix(ftle_matrix==0)=NaN;
+
+
 %% Create labels
 labels = create_labels( my_vis_var );
 %% Write generic part of the title

@@ -41,7 +41,9 @@ for i=1:n_frames
             ftle_matrix(ftle_matrix>flags.spikes_value)=0;
         end
     end
-    
+    %% Remove zeros
+	ftle_matrix(ftle_matrix==0)=NaN;
+	
 	% locate lcs
 	% 	lcs=locate_lcs(ftle,0.64);
 	% 	lcs_matrix=reshape(lcs,n2,n1);
