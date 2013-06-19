@@ -1,12 +1,13 @@
 clearvars
-tr=select_tracers()
+% tr=select_tracers()
+tr=select_tracers('../MissionAnalysis/Prove per missione/fig/')
 % tr=select_tracers('Sun_Jupiter_t=220_little.fig');
 % load Sun_Jupiter_t=220_little_tracers_183348  % Tracers con x = x_earth
 % load Sun_Jupiter_v_t=220_tracers_171341		% Tracers con impatto
 % generate_tracers_SJ
 traj=integrate_tracers(tr);
 figure
-plot_traj(tr,traj)
+plot_traj(tr.mu,traj)
 % size of Jupiter SOF in the adimensionalized system is 0.0619
 
 %% Useful data
