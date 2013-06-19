@@ -1,11 +1,12 @@
 function plot_traj(mu,traj)
-n=length(traj);
+a=size(traj);
+n=a(1);
 for i=1:n
 	hold all
 	plot(traj{i,1}(:,1),traj{i,1}(:,2))
-	leg{i}=sprintf('tracer %d',i);
+	leg{i}=sprintf(' %d',i);
 end
-legend(leg)
+legend(leg,'fontsize',10)
 
 % Initial and final points
 for i=1:n
