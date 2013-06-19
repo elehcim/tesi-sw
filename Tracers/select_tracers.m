@@ -49,9 +49,10 @@ disp('Right mouse button picks last point.')
 but = 1;
 while but == 1
 	[xi,yi,but] = ginput(1);
-	plot(xi,yi,'xk','MarkerSize',15)
+	plot(xi,yi,'+k','MarkerSize',15)
 	n = n+1;
 	fprintf('tracer %i: %.2f\t%.2f\n',n,xi,yi)
+	text(xi,yi,sprintf(' %d',n),'VerticalAlignment','top')
 	xy(:,n) = [xi;yi];
 end
 hold off
