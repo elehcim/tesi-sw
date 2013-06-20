@@ -9,13 +9,17 @@ ecc_jup = 0.04839266;
 %% Select tracers
 %tr=select_tracers('../Tracers/Sun_Jupiter_t=220_little.fig');
 %load Sun_Jupiter_t=220_little_tracers_20130612-222805.mat
-tr=tracers_grid_SJ_little;
+%tr=tracers_grid_SJ_little;
+
+% tr=select_tracers
+load t2.6180_T2_tracers_20130620-131916.mat
 %% Escape from earth
 %TODO
 
 
 %% Propagate orbit until Jupiter's SOI
 traj=integrate_tracers_SOI(tr);
+
 %%{
 %% Plot trajectories
 figure
@@ -42,6 +46,7 @@ y_syn=zeros(1,tr.n_tracers);
 vx_syn=zeros(1,tr.n_tracers);
 vy_syn=zeros(1,tr.n_tracers);
 dv_jup_inj=zeros(1,tr.n_tracers);
+fprintf('\n\nJupiter orbit injection delta v:\n')
 for j=1:tr.n_tracers
 	nu(j)=traj{j,2}(end);
 	x_syn(j)=traj{j}(end,1);
@@ -52,13 +57,15 @@ for j=1:tr.n_tracers
 	[vx, vy]=v_syn2in(x_syn(j),y_syn(j),vx_syn(j),vy_syn(j),nu(j), ...
 		a_jup, ecc_jup, sun_grav_par+jup_grav_par);
 	dv_jup_inj(j)=deiperbolize(x,y,vx,vy,jup_grav_par,nu(j),ecc_jup,a_jup);
+	fprintf('tracer %02i dv = %.2f km/s\n',j,dv_jup_inj(j))
 end
-dv_jup_inj
+
 %% choose the min dv and plot that traj
-index=find(dv_jup_inj==min(dv_jup_inj))
+index=find(dv_jup_inj==min(dv_jup_inj));
+fprintf('\noptimal tracer n.: %d\ndv = %.2f\n', index,dv_jup_inj(index));
 %% Plot trajectories
 figure
-plot_traj(tr.mu,traj(index))
+plot_traj(tr.mu,traj(index),index)
 % size of Jupiter SOF in the adimensionalized system is 0.0619
 % Useful data
 % r_sun=6.96e5;		% km
