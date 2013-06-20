@@ -9,5 +9,3 @@ cp $f Configuration.cfg
 $BIN
 rm Configuration.cfg
 done
-
-
