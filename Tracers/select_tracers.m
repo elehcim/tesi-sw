@@ -52,7 +52,7 @@ while but == 1
 	plot(xi,yi,'+k','MarkerSize',15)
 	n = n+1;
 	fprintf('tracer %i: %.2f\t%.2f\n',n,xi,yi)
-	text(xi,yi,sprintf(' %d',n),'VerticalAlignment','top')
+	text(xi,yi,sprintf(' %d',n),'fontsize',15,'VerticalAlignment','top')
 	xy(:,n) = [xi;yi];
 end
 hold off
