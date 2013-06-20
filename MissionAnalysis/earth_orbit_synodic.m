@@ -1,5 +1,5 @@
 clearvars
-tempi=linspace(0,(2*pi)/11,12);
+tempi=linspace(0,2*pi,12);
 
 sun_grav_par = 132712439935; % km^3/s^2
 a_jup = 778412027; % km
