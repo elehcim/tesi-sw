@@ -1,4 +1,7 @@
-function plot_traj(mu,traj)
+function plot_traj(mu,traj,index)
+if nargin < 3
+	index = 0;
+end
 a=size(traj);
 n=a(1);
 for i=1:n
@@ -6,7 +9,12 @@ for i=1:n
 	plot(traj{i,1}(:,1),traj{i,1}(:,2))
 	leg{i}=sprintf(' %d',i);
 end
-legend(leg,'fontsize',10)
+if nargin == 3 % Useful to plot the chose value when optimizing
+	single_leg=sprintf(' %d',index);
+	legend({single_leg},'fontsize',10)
+else
+	legend(leg,'fontsize',10)
+end
 
 % Initial and final points
 for i=1:n
