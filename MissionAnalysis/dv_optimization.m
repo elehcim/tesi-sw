@@ -12,7 +12,7 @@ ecc_jup = 0.04839266;
 %tr=tracers_grid_SJ_little;
 
 % tr=select_tracers
-tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/t1.3163_T1.5_5.fig'])
+tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
 % tr=tracers_grid_SJ_t
 % load t2.6180_T2_tracers_20130620-131916.mat
 %% Escape from earth
@@ -20,8 +20,8 @@ tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/t1.3163_T1
 
 
 %% Propagate orbit until Jupiter's SOI
-% traj=integrate_tracers_SOI(tr);
-load traj_5
+traj=integrate_tracers_SOI(tr);
+%load traj_5
 tracers_in_SOI=zeros(tr.n_tracers,1);
 c=1;
 for j=1:tr.n_tracers
