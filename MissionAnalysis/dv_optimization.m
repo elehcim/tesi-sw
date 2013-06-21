@@ -12,18 +12,34 @@ ecc_jup = 0.04839266;
 %tr=tracers_grid_SJ_little;
 
 % tr=select_tracers
-load t2.6180_T2_tracers_20130620-131916.mat
+tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/t1.3163_T1.5_5.fig'])
+% tr=tracers_grid_SJ_t
+% load t2.6180_T2_tracers_20130620-131916.mat
 %% Escape from earth
 %TODO
 
 
 %% Propagate orbit until Jupiter's SOI
-traj=integrate_tracers_SOI(tr);
+% traj=integrate_tracers_SOI(tr);
+load traj_5
+tracers_in_SOI=zeros(tr.n_tracers,1);
+c=1;
+for j=1:tr.n_tracers
+	if traj{j,2}(end) ~= tr.t0+tr.T
+		tracers_in_SOI(j)=1;
+		traj_in_SOI{c,1}=traj{j,1};
+		traj_in_SOI{c,2}=traj{j,2};
+		c=c+1;
+	end
+end
+n_tracers_in_SOI=sum(tracers_in_SOI);
+fprintf('\nNumber of tracers reaching SOI: %i\n', n_tracers_in_SOI);
 
 %%{
 %% Plot trajectories
 figure
-plot_traj(tr.mu,traj)
+SOI_indexes=find(tracers_in_SOI);
+plot_traj(tr.mu,traj_in_SOI,SOI_indexes)
 % size of Jupiter SOF in the adimensionalized system is 0.0619
 % Useful data
 % r_sun=6.96e5;		% km
@@ -45,9 +61,11 @@ x_syn=zeros(1,tr.n_tracers);
 y_syn=zeros(1,tr.n_tracers);
 vx_syn=zeros(1,tr.n_tracers);
 vy_syn=zeros(1,tr.n_tracers);
-dv_jup_inj=zeros(1,tr.n_tracers);
+dv_jup_inj=nan(1,tr.n_tracers);
 fprintf('\n\nJupiter orbit injection delta v:\n')
+
 for j=1:tr.n_tracers
+	if tracers_in_SOI(j)
 	nu(j)=traj{j,2}(end);
 	x_syn(j)=traj{j}(end,1);
 	y_syn(j)=traj{j}(end,2);
@@ -58,6 +76,7 @@ for j=1:tr.n_tracers
 		a_jup, ecc_jup, sun_grav_par+jup_grav_par);
 	dv_jup_inj(j)=deiperbolize(x,y,vx,vy,jup_grav_par,nu(j),ecc_jup,a_jup);
 	fprintf('tracer %02i dv = %.2f km/s\n',j,dv_jup_inj(j))
+	end
 end
 
 %% choose the min dv and plot that traj

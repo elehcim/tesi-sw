@@ -9,9 +9,11 @@ for i=1:n
 	plot(traj{i,1}(:,1),traj{i,1}(:,2))
 	leg{i}=sprintf(' %d',i);
 end
-if nargin == 3 % Useful to plot the chose value when optimizing
-	single_leg=sprintf(' %d',index);
-	legend({single_leg},'fontsize',10)
+if nargin == 3
+	for j=1:length(index) % Useful to plot the chosen value when optimizing
+	single_leg{j}=sprintf(' %d',index(j));
+	legend(single_leg,'fontsize',10)
+	end
 else
 	legend(leg,'fontsize',10)
 end
