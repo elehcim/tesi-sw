@@ -5,7 +5,7 @@ function [X,Y]=r_syn2in(x,y,nu, a,e)
 %% Distance between primaries
 r = a*(1-e^2)/(1+e*cos(nu));
 
-%% Get to not rotating frame (Kolomaro pag. 27, formula 2.3.1)
+%% Transform to fixed frame (not rotating) (Kolomaro pag. 27, formula 2.3.1)
 x_prime = x * cos(nu) - y * sin(nu);
 y_prime = x * sin(nu) + y * cos(nu);
 
