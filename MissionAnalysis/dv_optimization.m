@@ -15,13 +15,26 @@ ecc_jup = 0.04839266;
 tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
 % tr=tracers_grid_SJ_t
 % load t2.6180_T2_tracers_20130620-131916.mat
-%% Escape from earth
-%TODO
 
+
+%% Escape from earth
+% fprintf('\n\nEarth escape delta v:\n')
+% for j=1:tr.n_tracers
+% 	nu(j)=traj{j,2}(1);
+% 	x_syn(j)=traj{j}(1,1);
+% 	y_syn(j)=traj{j}(1,2);
+% 	vx_syn(j)=traj{j}(1,3);
+% 	vy_syn(j)=traj{j}(1,4);
+% 	[x , y]=r_syn2in(x_syn(j),y_syn(j), nu(j), a_jup, ecc_jup);
+% 	[vx, vy]=v_syn2in(x_syn(j),y_syn(j),vx_syn(j),vy_syn(j),nu(j), ...
+% 		a_jup, ecc_jup, sun_grav_par+jup_grav_par);
+% 	dv_earth_esc(j)=earth_escape(x,y,vx,vy,jup_grav_par,nu(j),ecc_jup,a_jup);
+% 	fprintf('tracer %02i dv = %.2f km/s\n',j,dv_jup_inj(j))
+% end
 
 %% Propagate orbit until Jupiter's SOI
-traj=integrate_tracers_SOI(tr);
-%load traj_5
+traj=integrate_tracers(tr);
+
 tracers_in_SOI=zeros(tr.n_tracers,1);
 c=1;
 for j=1:tr.n_tracers

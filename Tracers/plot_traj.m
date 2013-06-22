@@ -11,8 +11,8 @@ for i=1:n
 end
 if nargin == 3
 	for j=1:length(index) % Useful to plot the chosen value when optimizing
-	single_leg{j}=sprintf(' %d',index(j));
-	legend(single_leg,'fontsize',10)
+	leg{j}=sprintf(' %d',index(j));
+	legend(leg,'fontsize',10)
 	end
 else
 	legend(leg,'fontsize',10)
@@ -22,6 +22,7 @@ end
 for i=1:n
 plot(traj{i,1}(1,1),traj{i,1}(1,2),'sg')
 plot(traj{i,1}(end,1),traj{i,1}(end,2),'sr')
+text(traj{i,1}(end,1),traj{i,1}(end,2),leg{i},'fontsize',15,'VerticalAlignment','top')
 end
 %% Plot first primary not in scale
 plot(-mu,0,'ok','MarkerSize',5)
