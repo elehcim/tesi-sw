@@ -79,26 +79,26 @@ int configuration_load ()
     if (vm.count("parameters.t0")){t0=vm["parameters.t0"].as<double>();}
     if (vm.count("parameters.tf")){tf=vm["parameters.tf"].as<double>();}
     if (vm.count("parameters.DT")) {DT=vm["parameters.DT"].as<double>();}
-    else if (field_type=="FTLE"){std::cout<<"Integration interval missing!";    //FIXME Trovare nome più adatto o eliminare errore mettendo un default
+    else if (field_type=="FTLE"){std::cout<<"Integration interval missing!\n";    //FIXME Trovare nome più adatto o eliminare errore mettendo un default
                                 return 1;}
     if(field_type=="FILE")
             {if (vm.count("parameters.n_iterations")) {n_iterations=vm["parameters.n_iterations"].as<int>();}}
     if (field_type!="FILE" && field_type!="FTLE")
-    {std::cout<<"Unrecognized type of field";
+    {std::cout<<"Unrecognized field type\n";
     return 1;}
     if (vm.count("parameters.n_frames"))
         {
             n_frames=vm["parameters.n_frames"].as<int>();
-            if (n_frames<=0){std::cout<<"Number of frames cannot be 0 or less";
+            if (n_frames<=0){std::cout<<"Number of frames cannot be 0 or less\n";
                             return 1;}
         }
-    else    {std::cout<<"Number of frames missing!";
+    else    {std::cout<<"Number of frames missing!\n";
             return 1;}
     if (vm.count("parameters.abs_tol")){abs_tol=vm["parameters.abs_tol"].as<double>();}
-    if (abs_tol<1e-20){std::cout<<"Please provide an absolute tolerance higher than 1e-20";
+    if (abs_tol<1e-20){std::cout<<"Please provide an absolute tolerance higher than 1e-20\n";
                         return 1;}
     if (vm.count("parameters.rel_tol")){rel_tol=vm["parameters.rel_tol"].as<double>();}
-    if (rel_tol<1e-20){std::cout<<"Please provide a relative tolerance higher than 1e-20";
+    if (rel_tol<1e-20){std::cout<<"Please provide a relative tolerance higher than 1e-20\n";
                         return 1;}
     if (vm.count("parameters.n_cores")){n_cores=vm["parameters.n_cores"].as<int>();}
     if (vm.count("parameters.file_name")){custom_file_name=vm["parameters.file_name"].as<std::string>();
@@ -124,7 +124,7 @@ int configuration_load ()
                     return 1;}
             dx=(x_max-x_min)/(nx-1);
             if (dx<=0)
-                {std::cout<<"x_max must be greater than x_min!";
+                {std::cout<<"x_max must be greater than x_min!\n";
                 return 1;}
         }
     else
@@ -146,14 +146,14 @@ int configuration_load ()
             vis_count++;
             ny=vm["vis.var.ny"].as<int>();
             if (vm.count("vis.var.y_min")){y_min=vm["vis.var.y_min"].as<double>();}
-            else    {std::cout<<"y range missing!";
+            else    {std::cout<<"y range missing!\n";
                     return 1;}
             if (vm.count("vis.var.y_max")){y_max=vm["vis.var.y_max"].as<double>();}
-            else    {std::cout<<"y range missing!";
+            else    {std::cout<<"y range missing!\n";
                     return 1;}
             dy=(y_max-y_min)/(ny-1);
             if (dy<=0)
-                {std::cout<<"y_max must be greater than y_min!";
+                {std::cout<<"y_max must be greater than y_min!\n";
                 return 1;}
         }
     else
@@ -176,14 +176,14 @@ int configuration_load ()
             nvx=vm["vis.var.nvx"].as<int>();
             n1=nvx;
             if (vm.count("vis.var.vx_min")){vx_min=vm["vis.var.vx_min"].as<double>();}
-            else    {std::cout<<"vx range missing!";
+            else    {std::cout<<"vx range missing!\n";
                     return 1;}
             if (vm.count("vis.var.vx_max")){vx_max=vm["vis.var.vx_max"].as<double>();}
-            else    {std::cout<<"vx range missing!";
+            else    {std::cout<<"vx range missing!\n";
                     return 1;}
             dvx=(vx_max-vx_min)/(nvx-1);
             if (dvx<=0)
-                {std::cout<<"vx_max must be greater than vx_min!";
+                {std::cout<<"vx_max must be greater than vx_min!\n";
                 return 1;}
         }
     else
@@ -208,14 +208,14 @@ int configuration_load ()
             if (flags[2]){n2=nvy;}
             else{n1=nvy;}
             if (vm.count("vis.var.vy_min")){vy_min=vm["vis.var.vy_min"].as<double>();}
-            else    {std::cout<<"vy range missing!";
+            else    {std::cout<<"vy range missing!\n";
                     return 1;}
             if (vm.count("vis.var.vy_max")){vy_max=vm["vis.var.vy_max"].as<double>();}
-            else    {std::cout<<"vy range missing!";
+            else    {std::cout<<"vy range missing!\n";
                     return 1;}
             dvy=(vy_max-vy_min)/(nvy-1);
             if (dvy<=0)
-                {std::cout<<"vy_max must be greater than vy_min!";
+                {std::cout<<"vy_max must be greater than vy_min!\n";
                 return 1;}
         }
     else
@@ -241,14 +241,14 @@ int configuration_load ()
             ne=vm["vis.var.ne"].as<int>();
             n2=ne;
             if (vm.count("vis.var.e_min")){e_min=vm["vis.var.e_min"].as<double>();}
-            else    {std::cout<<"energy range missing!";
+            else    {std::cout<<"energy range missing!\n";
                     return 1;}
             if (vm.count("vis.var.e_max")){e_max=vm["vis.var.e_max"].as<double>();}
-            else    {std::cout<<"energy range missing!";
+            else    {std::cout<<"energy range missing!\n";
                     return 1;}
             de=(e_max-e_min)/(ne-1);
             if (de<=0)
-                {std::cout<<"e_max must be greater than e_min!";
+                {std::cout<<"e_max must be greater than e_min!\n";
                 return 1;}
         }
     else
@@ -269,26 +269,26 @@ int configuration_load ()
     {
     if (vis_count<2)
     {
-        std::cout<<"Too few visualization variables!";
+        std::cout<<"Too few visualization variables!\n";
         return 1;
     }
     else if (vis_count+in_count!=4)
         {
-            std::cout<<"Too few fixed variables. Sum of the number of visualization variables and fixed variables must be 4";
+            std::cout<<"Not enough fixed variables. Sum of the number of visualization variables and fixed variables must be 4\n";
             return 1;
         }
 
     if (in_count>2)
     {
-        std::cout<<"Too many fixed variables!";
+        std::cout<<"Too many fixed variables!\n";
         return 1;
     }
     }
     if (field_type=="FILE")
     {
-        if (vm.count("in.var.x") && vm.count("in.var.y")){std::cout<<"Please specify only one spatial fixed variable";
+        if (vm.count("in.var.x") && vm.count("in.var.y")){std::cout<<"Please specify only one spatial fixed variable\n";
                                                             return 1;}
-        if (!(vm.count("in.var.x")) && !(vm.count("in.var.y"))){std::cout<<"Please specify one spatial fixed variable";
+        if (!(vm.count("in.var.x")) && !(vm.count("in.var.y"))){std::cout<<"Please specify one spatial fixed variable\n";
                                                             return 1;}
     }
 
@@ -328,11 +328,11 @@ if (vm.count("distance.flag")){distance_flag=vm["distance.flag"].as<bool>();}
 
 if (distance_flag)
 {
-    if (!(vm.count("distance.L"))){std::cout<<"Please provide distance between primaries";
+    if (!(vm.count("distance.L"))){std::cout<<"Please provide distance between primaries\n";
                                     return 1;}
-    if (!(vm.count("distance.d1"))){std::cout<<"Please provide forbidden distance from 1st primary";
+    if (!(vm.count("distance.d1"))){std::cout<<"Please provide forbidden distance from 1st primary\n";
                                     return 1;}
-    if (!(vm.count("distance.d1"))){std::cout<<"Please provide forbidden distance from 2nd primary";
+    if (!(vm.count("distance.d1"))){std::cout<<"Please provide forbidden distance from 2nd primary\n";
                                     return 1;}
 }
 
