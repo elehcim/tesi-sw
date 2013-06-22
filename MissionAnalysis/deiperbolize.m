@@ -1,7 +1,15 @@
 function dv = deiperbolize(x,y,vx,vy,GM_jup,ni,e_jup,a_jup)
 % Take absolute velocities and returns delta v required to close the orbit
-% around the primary (first elliptic orbit of Galileo Mission taken as a 
+% around the primary (first elliptic orbit of Galileo mission taken as a
 % reference).
+%
+% The axes of the inertial reference system are fixed w.r.t. the fixed
+% stars and positioned as follows:
+%  * The X axis is from the primaries' barycenter toward the second primary
+%  pericenter.
+%  * The Y axis positive toward the direction of the motion of the smaller
+%  primary when it is at its pericenter.
+% 
 %  * (x, y) is the position of the S/C in the inertial reference system
 %  * (vx, vy) is the velocity of the S/C in the inertial reference system
 %  * GM_jup is the gravitational parameter of the target planet
