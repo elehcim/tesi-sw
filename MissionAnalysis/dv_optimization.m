@@ -14,13 +14,13 @@ p_earth=a_earth*(1-ecc_earth^2);
 % tr=select_tracers('../Tracers/Sun_Jupiter_t=220_little.fig');
 % load Sun_Jupiter_t=220_little_tracers_20130612-222805.mat
 % tr=tracers_grid_SJ_little;
-% tr=select_tracers
+ tr=select_tracers
 
 %tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
 
 % tr=tracers_grid_SJ_t
 % load t2.6180_T2_tracers_20130620-131916.mat
-load t1.3163_T1.5_8_tracers_20130622-172220.mat
+% load t1.3163_T1.5_8_tracers_20130622-172220.mat
 
 %% Propagate orbits
 traj=integrate_tracers_SOI(tr);
@@ -85,7 +85,7 @@ circle(1-tr.mu,0,size_jup_soi);
 % Plot Earth orbit
 circle(-tr.mu,0,size_earth_orbit);
 %}
-
+if n_tracers_in_SOI~=0
 %% Jupiter injection
 nu=zeros(1,tr.n_tracers);
 x_syn=zeros(1,tr.n_tracers);
@@ -109,13 +109,13 @@ for j=1:tr.n_tracers
 	fprintf('tracer %02i dv = %.2f km/s\n',j,dv_jup_inj(j))
 	end
 end
-
+	
 %% Total dv
 dv_total=dv_earth_esc+dv_jup_inj;
 
 %% Choose the min dv and plot that traj
 index=find(dv_total==min(dv_total));
-fprintf('\noptimal tracer n.: %d\ndv = %.2f\n', index,dv_jup_inj(index));
+fprintf('\noptimal tracer n.: %d\ndv = %.2f\n', index,dv_total(index));
 %% Plot chosen trajectory
 figure
 plot_traj(tr.mu,traj(index),index)
@@ -133,4 +133,8 @@ size_jup_soi=soi_jup/L;
 circle(1-tr.mu,0,size_jup_soi);
 % Plot Earth orbit
 circle(-tr.mu,0,size_earth_orbit);
+
+else
+	disp('Sorry, no tracer reachs Jupiter''s SOI ')
+end
 %% plot orbit near Jupiter %TODO
