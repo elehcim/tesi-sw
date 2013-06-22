@@ -1,5 +1,13 @@
 function [X_dot,Y_dot]=v_syn2in(x, y, vx, vy, f, a, e, GM_sun)
 % Transform the synodic velocity to the inertial velocity.
+%
+% The axes of the inertial reference system are fixed w.r.t. the fixed
+% stars and positioned as follows:
+%  * The X axis is from the primaries' barycenter toward the second primary
+%  pericenter.
+%  * The Y axis positive toward the direction of the motion of the smaller
+%  primary when it is at its pericenter.
+% 
 % x, y, vx, vy are all relative to the synodic frame.
 
 p = a*(1-e^2);
