@@ -3,13 +3,9 @@ a = 778412027; % km
 r_earth_orbit = 149600000;	% km
 ecc = 0.04839266;
 
-hold all
-ellipse(a,a*sqrt(1-ecc^2),0,0,0)
-circle(0,0,r_earth_orbit)
-plot(0,0,'+')
-
 n=size(traj,1);
 for i=1:n
+	hold all
 	x_syn=traj{i}(:,1);
 	y_syn=traj{i}(:,2);
 	nu=traj{i,2};
@@ -25,6 +21,13 @@ if nargin == 3
 else
 	legend(leg,'fontsize',10)
 end
+
+%% Plot other stuff
+ellipse(a,a*sqrt(1-ecc^2),0,0,0,'k');
+circle(0,0,r_earth_orbit);
+plot(0,0,'+k')
+
+%% Format
 xlabel('$x$','fontsize',20,'interpreter','latex')
 ylabel('$y$','fontsize',20,'interpreter','latex')
 set(gca,'FontSize',20)
