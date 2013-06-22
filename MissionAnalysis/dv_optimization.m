@@ -14,7 +14,7 @@ p_earth=a_earth*(1-ecc_earth^2);
 % tr=select_tracers('../Tracers/Sun_Jupiter_t=220_little.fig');
 % load Sun_Jupiter_t=220_little_tracers_20130612-222805.mat
 % tr=tracers_grid_SJ_little;
- tr=select_tracers
+tr=select_tracers
 
 %tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
 
@@ -63,7 +63,7 @@ fprintf('\nNumber of tracers reaching SOI: %i\n', n_tracers_in_SOI);
 
 %%{
 %% Plot trajectories
-figure
+figure('name','Trajectories in the synodic frame')
 %{
 SOI_indexes=find(tracers_in_SOI);
 plot_traj(tr.mu,traj_in_SOI,SOI_indexes)
@@ -85,6 +85,10 @@ circle(1-tr.mu,0,size_jup_soi);
 % Plot Earth orbit
 circle(-tr.mu,0,size_earth_orbit);
 %}
+%% Plot trajectories in the inertial frame
+figure('name','Trajectories in the inertial reference frame')
+plot_traj_inertial(traj)
+
 if n_tracers_in_SOI~=0
 %% Jupiter injection
 nu=zeros(1,tr.n_tracers);
@@ -116,9 +120,9 @@ dv_total=dv_earth_esc+dv_jup_inj;
 %% Choose the min dv and plot that traj
 index=find(dv_total==min(dv_total));
 fprintf('\noptimal tracer n.: %d\ndv = %.2f\n', index,dv_total(index));
-%% Plot chosen trajectory
-figure
-plot_traj(tr.mu,traj(index),index)
+%% Plot optimal trajectory
+figure('name','Optimal trajectory')
+plot_traj(tr.mu,traj(index,:),index)
 % size of Jupiter SOF in the adimensionalized system is 0.0619
 % Useful data
 % r_sun=6.96e5;		% km
@@ -133,8 +137,10 @@ size_jup_soi=soi_jup/L;
 circle(1-tr.mu,0,size_jup_soi);
 % Plot Earth orbit
 circle(-tr.mu,0,size_earth_orbit);
-
+%% Plot optimal trajectory in the inertial frame
+figure('name','Optimal trajectory in the inertial reference frame')
+plot_traj_inertial(traj(index,:),index)
 else
-	disp('Sorry, no tracer reachs Jupiter''s SOI ')
+	disp('Sorry, no tracer reaches Jupiter''s SOI ')
 end
 %% plot orbit near Jupiter %TODO
