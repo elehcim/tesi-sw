@@ -7,10 +7,9 @@ a_jup = 778412027; % km
 ecc_jup = 0.04839266;
 
 %% Select tracers
-%tr=select_tracers('../Tracers/Sun_Jupiter_t=220_little.fig');
-%load Sun_Jupiter_t=220_little_tracers_20130612-222805.mat
-%tr=tracers_grid_SJ_little;
-
+% tr=select_tracers('../Tracers/Sun_Jupiter_t=220_little.fig');
+% load Sun_Jupiter_t=220_little_tracers_20130612-222805.mat
+% tr=tracers_grid_SJ_little;
 % tr=select_tracers
 tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
 % tr=tracers_grid_SJ_t
@@ -32,9 +31,10 @@ tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
 % 	fprintf('tracer %02i dv = %.2f km/s\n',j,dv_jup_inj(j))
 % end
 
-%% Propagate orbit until Jupiter's SOI
-traj=integrate_tracers(tr);
+%% Propagate orbits
+traj=integrate_tracers_SOI(tr);
 
+%% Choose orbit reaching Jupiter's SOI
 tracers_in_SOI=zeros(tr.n_tracers,1);
 c=1;
 for j=1:tr.n_tracers
@@ -51,8 +51,12 @@ fprintf('\nNumber of tracers reaching SOI: %i\n', n_tracers_in_SOI);
 %%{
 %% Plot trajectories
 figure
+%{
 SOI_indexes=find(tracers_in_SOI);
 plot_traj(tr.mu,traj_in_SOI,SOI_indexes)
+%}
+
+plot_traj(tr.mu,traj)
 % size of Jupiter SOF in the adimensionalized system is 0.0619
 % Useful data
 % r_sun=6.96e5;		% km
@@ -68,6 +72,7 @@ circle(1-tr.mu,0,size_jup_soi);
 % Plot Earth orbit
 circle(-tr.mu,0,size_earth_orbit);
 %}
+
 %% Jupiter injection
 nu=zeros(1,tr.n_tracers);
 x_syn=zeros(1,tr.n_tracers);
@@ -75,7 +80,7 @@ y_syn=zeros(1,tr.n_tracers);
 vx_syn=zeros(1,tr.n_tracers);
 vy_syn=zeros(1,tr.n_tracers);
 dv_jup_inj=nan(1,tr.n_tracers);
-fprintf('\n\nJupiter orbit injection delta v:\n')
+fprintf('\n\nJupiter orbital injection delta v:\n')
 
 for j=1:tr.n_tracers
 	if tracers_in_SOI(j)
@@ -95,7 +100,7 @@ end
 %% choose the min dv and plot that traj
 index=find(dv_jup_inj==min(dv_jup_inj));
 fprintf('\noptimal tracer n.: %d\ndv = %.2f\n', index,dv_jup_inj(index));
-%% Plot trajectories
+%% Plot chosen trajectory
 figure
 plot_traj(tr.mu,traj(index),index)
 % size of Jupiter SOF in the adimensionalized system is 0.0619
