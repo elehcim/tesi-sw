@@ -1,5 +1,6 @@
 clearvars
 addpath('../Tracers/')
+addpath('../Plot_ftle/')
 %% Data
 GM_jup = 126711995; % km^3/s^2
 GM_sun = 132712439935; % km^3/s^2
@@ -16,8 +17,9 @@ p_earth=a_earth*(1-ecc_earth^2);
 % tr=tracers_grid_SJ_little;
 %tr=select_tracers
 % load zoom_sx_+_tracers_20130623-000205.mat
-%tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
-load zoom_sx_+_tracers_20130625-102736.mat
+ tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
+%load zoom_sx_+_tracers_20130625-102736.mat % 13 tracers con minimo a 6 di dv_totale
+
 % tr=tracers_grid_SJ_t
 % load t2.6180_T2_tracers_20130620-131916.mat
 % load t1.3163_T1.5_8_tracers_20130622-172220.mat
@@ -33,6 +35,8 @@ vx_syn_0=zeros(1,tr.n_tracers);
 vy_syn_0=zeros(1,tr.n_tracers);
 dv_earth_esc=nan(1,tr.n_tracers);
 fprintf('\nEarth escape delta v:\n')
+fprintf('---------------------\n')
+
 for j=1:tr.n_tracers
 	nu_0(j)=traj{j,2}(1); % anomaly of jupiter and "time" of the system
 	x_syn_0(j)=traj{j}(1,1);
@@ -43,7 +47,7 @@ for j=1:tr.n_tracers
 	[vx_0, vy_0] = v_syn2in(x_syn_0(j),y_syn_0(j),vx_syn_0(j),vy_syn_0(j),...
 		nu_0(j), a_jup, ecc_jup, GM_sun+GM_jup);
 	dv_earth_esc(j) = earth_escape(x_0,y_0,vx_0,vy_0);
-	fprintf('tracer %02i dv = %.2f km/s\n',j,dv_earth_esc(j))
+	fprintf('tracer: %02i dv = %.2f km/s\n',j,dv_earth_esc(j))
 end
 
 
@@ -100,7 +104,7 @@ dv_jup_inj=nan(1,tr.n_tracers);
 dv_perijove=nan(1,tr.n_tracers);
 dv_apojove=nan(1,tr.n_tracers);
 fprintf('\nJupiter orbital injection delta v:\n')
-
+fprintf('----------------------------------\n')
 for j=1:tr.n_tracers
 	if tracers_in_SOI(j)
 	nu(j)=traj{j,2}(end);
