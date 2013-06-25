@@ -14,10 +14,10 @@ p_earth=a_earth*(1-ecc_earth^2);
 % tr=select_tracers('../Tracers/Sun_Jupiter_t=220_little.fig');
 % load Sun_Jupiter_t=220_little_tracers_20130612-222805.mat
 % tr=tracers_grid_SJ_little;
-tr=select_tracers
-
+%tr=select_tracers
+% load zoom_sx_+_tracers_20130623-000205.mat
 %tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
-
+load zoom_sx_+_tracers_20130625-102736.mat
 % tr=tracers_grid_SJ_t
 % load t2.6180_T2_tracers_20130620-131916.mat
 % load t1.3163_T1.5_8_tracers_20130622-172220.mat
@@ -97,6 +97,8 @@ y_syn=zeros(1,tr.n_tracers);
 vx_syn=zeros(1,tr.n_tracers);
 vy_syn=zeros(1,tr.n_tracers);
 dv_jup_inj=nan(1,tr.n_tracers);
+dv_perijove=nan(1,tr.n_tracers);
+dv_apojove=nan(1,tr.n_tracers);
 fprintf('\nJupiter orbital injection delta v:\n')
 
 for j=1:tr.n_tracers
@@ -109,7 +111,7 @@ for j=1:tr.n_tracers
 	[x , y]=r_syn2in(x_syn(j),y_syn(j), nu(j), a_jup, ecc_jup);
 	[vx, vy]=v_syn2in(x_syn(j),y_syn(j),vx_syn(j),vy_syn(j),nu(j), ...
 		a_jup, ecc_jup, GM_sun+GM_jup);
-	dv_jup_inj(j)=deiperbolize(x,y,vx,vy,GM_jup,nu(j),ecc_jup,a_jup);
+	[dv_jup_inj(j),dv_perijove(j),dv_apojove(j)]=deiperbolize(x,y,vx,vy,GM_jup,nu(j),ecc_jup,a_jup);
 	fprintf('tracer %02i dv = %.2f km/s\n',j,dv_jup_inj(j))
 	end
 end
