@@ -9,7 +9,7 @@ Each section admits only its own parameters. Below there is a list of all the al
 
 [parameters]		This section groups the physical parameters of the system along with some computational parameters.
 mu=(double)		Mass parameter of the system
-ecc=(double)		Eccentricity of the primaries' orbit
+ecc=(double)		Eccentricity of the primaries' orbits
 DT=(double)		Integration interval: the interval over which the integration is performed in order to compute FTLE field
 n_frames=(int)		Number of frames. Must be greater than 0. If it is greater than 1 the output wil be a video, otherwise, a static image will be created.
 n_cores=(int)		Number of threads over which the integration will be parallelized. Note that it is independent on actual number of computer's hardware cores, so benefits may not exist if this number is increased over the number of actual hardware cores.
@@ -40,8 +40,8 @@ e=(double)		Fixed value for energy.
 
 [distance]			This section groups parameters about the distance from the primaries check during integration.
 flag=(bool)		If true (1) distance check will be performed; if false (0) it will be ignored.
-d1=(double)		Forbidden distance from first primary (dimensionless).
-d2=(double)		Forbidden distance from second primary (dimensionless).
+d1=(double)		Forbidden distance from first primary (km).
+d2=(double)		Forbidden distance from second primary (km).
 
 [matlab]
 flag=(bool)		If true (1) matlab will be automatically launched at the end of the computation in order to plot the results; if false (0) the program is ended without launching matlab.
