@@ -1,13 +1,13 @@
 %% From Kent's code
-clear all
+clearvars
 tic
 % initialize integration time T, f(x,t), discretization size n ----------------
-T = 8;
+T = 5;
 x_min=0;
 x_max=2;
 y_min=0;
 y_max=1;
-n=50; % how many points per one measure unit (both in x and in y)
+n=300; % how many points per one measure unit (both in x and in y)
 ds=1/(n-1);
 x_res=(x_max-x_min)*n;
 y_res=(y_max-y_min)*n;
@@ -26,7 +26,7 @@ parfor i = 1:x_res
 	end
 end
 %% Compute FTLE
-sigma=zeros(x_res,y_res);
+sigma=nan(x_res,y_res);
 % at each point in interior of grid, store FTLE ------------------------------
 for i = 2:x_res-1
 	for j = 2:y_res-1
@@ -44,9 +44,17 @@ for i = 2:x_res-1
 	end
 end
 toc
+save(sprintf('data_dg_n%i-T%i',n,T))
+
 %% plot FTLE field ------------------------------------------------------------
-figure
+figure('name',sprintf('contourf n=%i T=%i',n,T))
 contourf(grid_x,grid_y,sigma');
 colorbar('location','EastOutside');
-axis equal
+axis image
 shading flat
+figure('name',sprintf('pcolor n=%i T=%i',n,T))
+pcolor(grid_x,grid_y,sigma');
+shading interp
+colorbar('location','EastOutside');
+axis image
+set(gca,'FontSize',20)
