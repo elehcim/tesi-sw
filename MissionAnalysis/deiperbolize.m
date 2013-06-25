@@ -1,4 +1,4 @@
-function dv = deiperbolize(x,y,vx,vy,GM_jup,ni,e_jup,a_jup)
+function [dv,dv_perijove,dv_apojove] = deiperbolize(x,y,vx,vy,GM_jup,ni,e_jup,a_jup)
 % Take absolute velocities and returns delta v required to close the orbit
 % around the primary (first elliptic orbit of Galileo mission taken as a
 % reference).
