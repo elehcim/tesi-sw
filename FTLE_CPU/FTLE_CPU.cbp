@@ -75,6 +75,7 @@
 			<Option target="Linux" />
 			<Option target="Win" />
 		</Unit>
+		<Unit filename="src/command_line_load.cpp" />
 		<Unit filename="src/configuration_load.cpp" />
 		<Unit filename="src/create_ic_vector.cpp" />
 		<Unit filename="src/create_missing_vector.cpp" />

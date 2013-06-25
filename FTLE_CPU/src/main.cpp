@@ -4,15 +4,16 @@
 #include "global_var.hpp"
 #include <stdio.h>
 
-
-
 typedef double value_type;
 int RUN (double t0);
-int configuration_load ();
-
-int main ()
+int configuration_load (std::string config_file);
+std::string command_line_load (int ac, char* av[]);
+int main (int ac, char* av[])
 {
-    int error=configuration_load();
+    int error;
+    std::string config_file;
+    config_file=command_line_load(ac, av);
+    error=configuration_load(config_file);
     double dt=(t0+tf)/(n_frames);
     if (!error)
     {
