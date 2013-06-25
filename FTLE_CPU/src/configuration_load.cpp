@@ -18,13 +18,13 @@ int in_count=0;
 bool distance_flag, matlab_flag, name_flag=0;
 std::string field_type;
 std::string custom_file_name;
-int configuration_load ()
+int configuration_load (std::string config_file)
 {
-    po::options_description options("Allowed options");
+    po::options_description options("Allowed options on configuration file");
     options.add_options()
         ("parameters.mu", po::value<double>(),"mu")
         ("parameters.ecc", po::value<double>(),"ecc")
-        ("parameters.type", po::value<std::string>()->default_value("FTLE"),"Type of field")
+        ("parameters.field", po::value<std::string>()->default_value("FTLE"),"Type of field")
         ("parameters.t0", po::value<double>()->default_value(0.0),"t0")
         ("parameters.tf", po::value<double>()->default_value(2*M_PI),"tf")
         ("parameters.DT", po::value<double>()->default_value(10.0),"DT")
@@ -32,7 +32,7 @@ int configuration_load ()
         ("parameters.n_frames", po::value<int>()->default_value(1),"set n_frames")
         ("parameters.abs_tol", po::value<double>()->default_value(1e-6), "Integrator absolute tolerance" )
         ("parameters.rel_tol", po::value<double>()->default_value(1e-6), "Integrator relative tolerance" )
-        ("parameters.n_cores", po::value<int>(), "Max number of cores")
+        ("parameters.n_cores", po::value<int>()->default_value(1), "Max number of threads")
         ("parameters.file_name", po::value<std::string>(),"Output file name")
         ("vis.var.nx", po::value<int>(), "set nx")
         ("vis.var.ny", po::value<int>(), "set ny")
@@ -62,8 +62,9 @@ int configuration_load ()
         ;
 
     po::variables_map vm;
-    std::string config_file;
-    config_file="Configuration.cfg";
+
+    //std::string config_file;
+    //config_file="Configuration.cfg";
     std::ifstream ifs(config_file.c_str());
     store(parse_config_file(ifs, options), vm);
     notify(vm);
@@ -75,7 +76,7 @@ int configuration_load ()
     if (vm.count("parameters.ecc")) {ecc=vm["parameters.ecc"].as<double>();}
     else    {std::cout<<"Eccentricity missing!";
             return 1;}
-    if (vm.count("parameters.type")){field_type=vm["parameters.type"].as<std::string>();}
+    if (vm.count("parameters.field")){field_type=vm["parameters.field"].as<std::string>();}
     if (vm.count("parameters.t0")){t0=vm["parameters.t0"].as<double>();}
     if (vm.count("parameters.tf")){tf=vm["parameters.tf"].as<double>();}
     if (vm.count("parameters.DT")) {DT=vm["parameters.DT"].as<double>();}
