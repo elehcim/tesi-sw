@@ -1,4 +1,4 @@
-function [dv,dv_perijove,dv_apojove] = deiperbolize(x,y,vx,vy,GM_jup,ni,e_jup,a_jup)
+function [dv,dv_perijove,dv_apojove,a_hyp,e_hyp,rp_hyp] = deiperbolize(x,y,vx,vy,GM_jup,ni,e_jup,a_jup)
 % Take absolute velocities and returns delta v required to close the orbit
 % around the primary (first elliptic orbit of Galileo mission taken as a
 % reference).
@@ -49,8 +49,13 @@ jup_radius=71492; % km !! Equatorial Radius !!
 
 if rp_hyp < jup_radius
 	dv=NaN;
-	return
-end
+	dv_perijove=NaN;
+	dv_apojove=NaN;
+	a_hyp=NaN;
+	e_hyp=NaN;
+	rp_hyp=NaN;
+	disp('!! tracer inside Jupiter !!')
+else
 vp_hyp=sqrt(GM_jup * (2/rp_hyp - 1/a_hyp));
 
 %% Compute target ellipse orbital parameters
@@ -76,3 +81,4 @@ dv_apojove = va_target - va_ell_1;
 
 %% Total
 dv = abs(dv_perijove) + abs(dv_apojove);
+end

@@ -17,7 +17,12 @@ p_earth=a_earth*(1-ecc_earth^2);
 % tr=tracers_grid_SJ_little;
 %tr=select_tracers
 % load zoom_sx_+_tracers_20130623-000205.mat
+
+
  tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
+
+%load zoom_sx_+_tracers_20130625-122232.mat % 3 tracers con un buon colpo
+% load zoom_sx_+_tracers_20130625-130810.mat % 7 tracers lungo il crinale
 %load zoom_sx_+_tracers_20130625-102736.mat % 13 tracers con minimo a 6 di dv_totale
 
 % tr=tracers_grid_SJ_t
@@ -90,8 +95,8 @@ circle(1-tr.mu,0,size_jup_soi);
 circle(-tr.mu,0,size_earth_orbit);
 %}
 %% Plot trajectories in the inertial frame
-figure('name','Trajectories in the inertial reference frame')
-plot_traj_inertial(traj)
+% figure('name','Trajectories in the inertial reference frame')
+% plot_traj_inertial(traj)
 
 if n_tracers_in_SOI~=0
 %% Jupiter injection
@@ -103,6 +108,9 @@ vy_syn=zeros(1,tr.n_tracers);
 dv_jup_inj=nan(1,tr.n_tracers);
 dv_perijove=nan(1,tr.n_tracers);
 dv_apojove=nan(1,tr.n_tracers);
+a_hyp=nan(1,tr.n_tracers);
+e_hyp=nan(1,tr.n_tracers);
+rp_hyp=nan(1,tr.n_tracers);
 fprintf('\nJupiter orbital injection delta v:\n')
 fprintf('----------------------------------\n')
 for j=1:tr.n_tracers
@@ -115,17 +123,50 @@ for j=1:tr.n_tracers
 	[x , y]=r_syn2in(x_syn(j),y_syn(j), nu(j), a_jup, ecc_jup);
 	[vx, vy]=v_syn2in(x_syn(j),y_syn(j),vx_syn(j),vy_syn(j),nu(j), ...
 		a_jup, ecc_jup, GM_sun+GM_jup);
-	[dv_jup_inj(j),dv_perijove(j),dv_apojove(j)]=deiperbolize(x,y,vx,vy,GM_jup,nu(j),ecc_jup,a_jup);
-	fprintf('tracer %02i dv = %.2f km/s\n',j,dv_jup_inj(j))
+	[dv_jup_inj(j),dv_perijove(j),dv_apojove(j),a_hyp(j),e_hyp(j),rp_hyp(j)]=deiperbolize(x,y,vx,vy,GM_jup,nu(j),ecc_jup,a_jup);
+	fprintf('tracer: %02i dv = %.2f km/s\n',j,dv_jup_inj(j))
 	end
 end
-	
+
+%% Orbital Parameter
+jup_radius=71492; % km
+fprintf('\nHyperbola orbital parameter:\n')
+fprintf('----------------------------\n')
+for j=1:tr.n_tracers
+	fprintf('tracer: %02i rp = %5.1f * R_jup,  e = %.2f\n',j,rp_hyp(j)/jup_radius,e_hyp(j))
+end
+
+
 %% Total dv
 dv_total=dv_earth_esc+dv_jup_inj;
 
+fprintf('\nTotal delta v:\n')
+fprintf('--------------\n')
+for j=1:tr.n_tracers
+	fprintf('tracer: %02i dv = %.2f km/s\n',j,dv_total(j))
+end
 %% Choose the min dv and plot that traj
 index=find(dv_total==min(dv_total));
 fprintf('\noptimal tracer n.: %d\ndv = %.2f\n', index,dv_total(index));
+
+%% plot orbit near Jupiter %TODO
+% figure('name','Hyperbola')
+% cos_ni=linspace(-pi-1/e_hyp(index)+.1,pi-1/e_hyp(index)-.1,100);
+% % cos_ni=linspace(-1,1,100);
+% rho=a_hyp(index)*(1-e_hyp(index)^2)./(1+e_hyp(index)*cos_ni);
+% 
+% ni=linspace(0,2*pi,100);
+% % rho=a_hyp(index)*(1-e_hyp(index)^2)./(1+e_hyp(index)*cos(ni));
+% rho=rho.*(rho<48223000); %remove big ones
+% 
+% polar(cos_ni,rho)
+% 
+
+% r=@(phi,a,e) a*abs(1.-e.^2) ./ (1+e*cos(phi));
+% 
+% phi=0:0.01:2*pi;
+% polar(phi,r(phi,a_hyp(index),e_hyp(index)))
+
 %% Plot optimal trajectory
 figure('name','Optimal trajectory')
 plot_traj(tr.mu,traj(index,:),index)
@@ -143,10 +184,9 @@ size_jup_soi=soi_jup/L;
 circle(1-tr.mu,0,size_jup_soi);
 % Plot Earth orbit
 circle(-tr.mu,0,size_earth_orbit);
-%% Plot optimal trajectory in the inertial frame
-figure('name','Optimal trajectory in the inertial reference frame')
-plot_traj_inertial(traj(index,:),index)
+% %% Plot optimal trajectory in the inertial frame
+% figure('name','Optimal trajectory in the inertial reference frame')
+% plot_traj_inertial(traj(index,:),index)
 else
 	disp('Sorry, no tracer reaches Jupiter''s SOI ')
 end
-%% plot orbit near Jupiter %TODO
