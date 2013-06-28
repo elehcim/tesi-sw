@@ -2,7 +2,7 @@
 clearvars
 tic
 % initialize integration time T, f(x,t), discretization size n ----------------
-T = 5;
+T = -15;
 x_min=0;
 x_max=2;
 y_min=0;
