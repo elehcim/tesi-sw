@@ -1,18 +1,22 @@
+clearvars
 %% 500
 %load('data2d_mu=0.1000_ecc=0.00nx=500y0=0.00nvx=500e0=-1.81t0=0.00_1216.mat')
 %% Sun Jupiter
-load('DATA2d_Sun_Jupiter_4it_bw.mat');
+%load('data/DATA2d_Sun_Jupiter_4it_bw.mat');
 %% 1000
-%load('data2d_mu=0.1000_ecc=0.00nx=1000y0=0.00nvx=1000e0=-1.81t0=0.00_old.mat')
+%load('data/data2d_mu=0.1000_ecc=0.00nx=1000y0=0.00nvx=1000e0=-1.81t0=0.00_old.mat')
+%% Occhio Gawlik
+load('data/DATA2d_OcchioGawlik.mat')
 %% DATA
-epsilon=.6e-11;
+epsilon=1e-4;
 resample=0;
-filter=0; % 1:gauss; 2:unsharp
+filter=1; % 1:gauss; 2:unsharp
 sigma=1;
 siz=sigma*6;
+v(v==0)=NaN;
 %% Plot original image
-subplot(2,4,2:3)
-pcolor(X,Y,v);shading interp;colorbar;title('Original Image')
+orig=subplot(1,2,1);
+pcolor(X,Y,v);shading interp;title('Original Image')
 %% Filter
 G_gauss = fspecial('gaussian',[siz siz],sigma);
 G_unsharp = fspecial('unsharp');
@@ -29,9 +33,12 @@ end
 % disp('filtered')
 % pcolor(X,Y,v);shading interp;colorbar;title('Filtered Image')
 
-subplot(2,4,5:6)
-disp('method: cross product')
+ridges=subplot(1,2,2);
 LCS2d_plot_test(v,epsilon,X,Y,'cross product',resample);
+
+% subplot(2,4,5:6)
+% disp('method: cross product')
+% LCS2d_plot_test(v,epsilon,X,Y,'cross product',resample);
 
 % subplot(2,2,3)
 % disp('method: curvature vector')
@@ -40,7 +47,8 @@ LCS2d_plot_test(v,epsilon,X,Y,'cross product',resample);
 subplot(2,4,7:8)
 disp('method: eigen vector')
 LCS2d_plot_test(v,epsilon,X,Y,'eigen vector',resample);
+
 %% Set font size
 h = gcf;
-font_size=13;
+font_size=20;
 set(findall(h,'-property','FontSize'),'FontSize',font_size)

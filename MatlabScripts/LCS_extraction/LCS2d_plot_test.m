@@ -60,8 +60,8 @@ switch method
 end
 fprintf(' zeros: %i\n ones:  %i\n nans:  %i\n',...
 	length(find(lcs==0)),length(find(lcs==1)),length(find(isnan(lcs))))
-pcolor(X_res,Y_res,lcs); shading interp; colorbar;
-title(sprintf('%s\n \\epsilon = %.0e',method,epsilon))
+pcolor(X_res,Y_res,lcs); shading interp; %colorbar;
+%title(sprintf('%s\n \\epsilon = %.0e',method,epsilon))
 
 end
 
