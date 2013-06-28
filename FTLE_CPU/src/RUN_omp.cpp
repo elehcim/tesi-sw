@@ -183,7 +183,7 @@ int RUN (double t0)
 
     pp4d pf(nx, pp3d(ny, pp2d(n1, pp1d(n2) ) ));
 
-    printf("ftle dim=%i, %i, %i, %i\n", (int)ftle.size(), (int)ftle[1].size(), (int)ftle[1][1].size(), (int)ftle[1][1][1].size());
+    printf("sys dim=%i, %i, %i, %i\n", (int)ftle.size(), (int)ftle[1].size(), (int)ftle[1][1].size(), (int)ftle[1][1][1].size());
 //printf("id=%i\n",id);
 
     double1d x_0(nx);

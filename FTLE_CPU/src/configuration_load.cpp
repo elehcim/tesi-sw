@@ -107,7 +107,7 @@ int configuration_load (std::string config_file)
     if (n_frames>1 && matlab_flag){std::cout<<"Automatic Matlab visualization not supported if n_frames>1\n";
                                     return 1;}
 
-    printf("mu=%.2f ecc=%.2f DT=%.2f n_frames=%i\n",mu,ecc,DT,n_frames);
+    printf("mu=%.4f ecc=%.4f DT=%.2f n_frames=%i\n",mu,ecc,DT,n_frames);
 
     // Load vectors dimensions and input values
 
