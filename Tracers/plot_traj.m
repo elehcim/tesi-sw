@@ -5,7 +5,7 @@ end
 n=size(traj,1);
 for i=1:n
 	hold all
-	plot(traj{i,1}(:,1),traj{i,1}(:,2))
+	plot(traj{i,1}(:,1),traj{i,1}(:,2),'LineWidth',2)
 	leg{i}=sprintf(' %d',i);
 end
 if nargin == 3
@@ -21,7 +21,7 @@ end
 for i=1:n
 plot(traj{i,1}(1,1),traj{i,1}(1,2),'sg')
 plot(traj{i,1}(end,1),traj{i,1}(end,2),'sr')
-text(traj{i,1}(end,1),traj{i,1}(end,2),leg{i},'fontsize',15,'VerticalAlignment','top')
+text(traj{i,1}(end,1),traj{i,1}(end,2),leg{i},'fontsize',20,'VerticalAlignment','top')
 end
 %% Plot first primary not in scale
 plot(-mu,0,'ok','MarkerSize',10, 'MarkerFaceColor','k')

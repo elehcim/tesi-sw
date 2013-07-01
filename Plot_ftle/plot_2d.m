@@ -53,7 +53,7 @@ else
 	title(['FTLE ' title_string]);
 end
 %% Set font size
-font_size=20;
+font_size=25;
 set(findall(ftle_fig_handle,'-property','FontSize'),'FontSize',font_size)
 %% plot gridfit
 if flags.gridfit

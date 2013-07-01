@@ -58,7 +58,7 @@ for i=1:n_frames
 		my_fixed_var{2},param_struc.(my_fixed_var{2}),...
 		param_struc.ecc, param_struc.t0, param_struc.DT));
 	%% Set font size
-	font_size=20;
+	font_size=25;
 	set(findall(h(i),'-property','FontSize'),'FontSize',font_size)
 	% % plot lcs
 	% 	lcs_fig_handle=figure;
