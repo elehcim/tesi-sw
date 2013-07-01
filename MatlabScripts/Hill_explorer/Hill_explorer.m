@@ -205,6 +205,9 @@ zz=Omega(h.xx,h.yy,h.mu)/(1+h.ecc*cos(h.time));
 %surfc(handles.potential,h.xx,h.yy,-log(zz),'EdgeColor','none')
 %title(h.potential,'-log (Omega(x,y,\mu))')
 contour(h.hill_region,h.xx,h.yy,zz,[-h.energy,-h.energy],'b');
+% plot(h.hill_region,-handles.mu,0,'ok','MarkerSize',10, 'MarkerFaceColor','k')
+% plot(h.hill_region,1-handles.mu,0,'+k')
+% hold off
 %title(h.hill_region,'Hill''s region ','fontsize',20)
 set(h.hill_region,'fontsize',20)
 hz = zoom(h.hill_region);
