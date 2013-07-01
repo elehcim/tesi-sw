@@ -24,10 +24,10 @@ plot(traj{i,1}(end,1),traj{i,1}(end,2),'sr')
 text(traj{i,1}(end,1),traj{i,1}(end,2),leg{i},'fontsize',15,'VerticalAlignment','top')
 end
 %% Plot first primary not in scale
-plot(-mu,0,'ok','MarkerSize',5)
+plot(-mu,0,'ok','MarkerSize',10, 'MarkerFaceColor','k')
 
 %% Plot second primary center
-plot(1-mu,0,'+k')
+plot(1-mu,0,'ok','MarkerSize',5,'MarkerFaceColor','k')
 axis equal
 xlabel('$x$','fontsize',20,'interpreter','latex')
 ylabel('$y$','fontsize',20,'interpreter','latex')
