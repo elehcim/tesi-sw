@@ -116,15 +116,19 @@ for j=[1 7 20 31]%j=1:n_frames
  	figure
 	x_t=tracers{j}(:,1);
 	y_t=tracers{j}(:,2);
-	scatter(x_t,y_t,20,c,'o','filled')
 	hold on
- 	z=Omega(x,y,mu)/(1+ecc*cos(time_step(j)));
- 	contour(x,y,z,[-e,-e]);
-	xlim([-1.2 1.2])
-	ylim([-1.2 1.2])
-	xlabel('$x$','fontsize',13,'interpreter','latex')
-	ylabel('$y$','fontsize',13,'interpreter','latex')
+	box on
+	scatter(x_t,y_t,20,c*2,'o','filled')	
+	plot(1-mu,0,'ko','MarkerFaceColor','g')%,'MarkerSize',10)
+	plot(-mu,0,'ko','MarkerFaceColor','g','markersize',10)
 	hold off
+	% z=Omega(x,y,mu)/(1+ecc*cos(time_step(j)));
+	% contour(x,y,z,[-e,-e]);
+	xlim([-0.8 1.2])
+	ylim([-0.8 0.8])
+	xlabel('$x$','fontsize',20,'interpreter','latex')
+	ylabel('$y$','fontsize',20,'interpreter','latex')
+	set(gca,'FontSize',20)
 	%title(sprintf('ecc=%.2f, e_0=%.2f, t=%.2f, frame %i of %i',ecc,e,time_step(j),j,n_frames))
 	title(sprintf('t=%.2f',time_step(j)))
 	pause(pause_time);
