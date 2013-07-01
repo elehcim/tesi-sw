@@ -65,8 +65,8 @@ y=linspace(-bb,bb,points);
 [xx,yy]=meshgrid(x,y);
 handles.xx=xx;
 handles.yy=yy;
-handles.xlim=[0.8 1.2];
-handles.ylim=[-0.15 0.15];
+handles.xlim=[-1.3 1.3];
+handles.ylim=[-1.3 1.3];
 % handles.xlim=[bb bb];
 % handles.ylim=[-bb bb];
 
@@ -204,8 +204,9 @@ zz=Omega(h.xx,h.yy,h.mu)/(1+h.ecc*cos(h.time));
 % Code to plot the Potential
 %surfc(handles.potential,h.xx,h.yy,-log(zz),'EdgeColor','none')
 %title(h.potential,'-log (Omega(x,y,\mu))')
-contour(h.hill_region,h.xx,h.yy,zz,[-h.energy,-h.energy]);
-title(h.hill_region,'Hill''s region ')
+contour(h.hill_region,h.xx,h.yy,zz,[-h.energy,-h.energy],'b');
+%title(h.hill_region,'Hill''s region ','fontsize',20)
+set(h.hill_region,'fontsize',20)
 hz = zoom(h.hill_region);
 set(hz,'ActionPostCallback',@mypostcallback);
 %set(hz,'Enable','on');
