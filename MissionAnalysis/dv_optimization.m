@@ -18,7 +18,9 @@ p_earth=a_earth*(1-ecc_earth^2);
 %tr=select_tracers
 % load zoom_sx_+_tracers_20130623-000205.mat
 
-tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
+ tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
+
+%tr=tracers_grid_dv
 
 %load zoom_sx_+_tracers_20130625-122232.mat % 3 tracers con un buon colpo
 % load zoom_sx_+_tracers_20130625-130810.mat % 7 tracers lungo il crinale
@@ -147,7 +149,8 @@ end
 %% Choose the min dv and plot that traj
 index=find(dv_total==min(dv_total));
 fprintf('\noptimal tracer n.: %d\ndv = %.2f\n', index,dv_total(index));
-
+fprintf('\ncoordinates n.: %d\nx  = %7.4f\ny  = %7.4f\nvx = %7.4f\nvy = %7.4f\ne  = %7.4f\n\n',...
+	index,traj{index}(1,1),traj{index}(1,2),traj{index}(1,3),traj{index}(1,4),traj{index}(1,5));
 %% plot orbit near Jupiter %TODO
 % figure('name','Hyperbola')
 % cos_ni=linspace(-pi-1/e_hyp(index)+.1,pi-1/e_hyp(index)-.1,100);
@@ -166,9 +169,17 @@ fprintf('\noptimal tracer n.: %d\ndv = %.2f\n', index,dv_total(index));
 % phi=0:0.01:2*pi;
 % polar(phi,r(phi,a_hyp(index),e_hyp(index)))
 
-%% Plot optimal trajectory
+%% Plot entire optimal trajectory
+tr_opt=tr;
+tr_opt.n_tracers=1;
+tr_opt.x=traj{index}(1,1);
+tr_opt.y=traj{index}(1,2);
+tr_opt.vx=traj{index}(1,3);
+tr_opt.vy=traj{index}(1,4);
+tr_opt=complete_tracers(tr_opt);
 figure('name','Optimal trajectory')
-plot_traj(tr.mu,traj(index,:),index)
+traj_optimal=integrate_tracers(tr_opt);
+plot_traj(tr_opt.mu,traj_optimal);
 % size of Jupiter SOF in the adimensionalized system is 0.0619
 % Useful data
 % r_sun=6.96e5;		% km
