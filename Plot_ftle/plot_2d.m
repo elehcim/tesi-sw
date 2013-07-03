@@ -34,7 +34,9 @@ end
 %% Remove zeros
 ftle_matrix(ftle_matrix==0)=NaN;
 
-
+%% Set font size
+font_size=25;
+label_font_size=35;
 %% Create labels
 labels = create_labels( my_vis_var );
 %% Write generic part of the title
@@ -45,16 +47,23 @@ title_string=(sprintf('%ix%i\n%s=%.3f %s=%.3f ecc=%.2f t=%.2f T=%.2f',...
 %% Plot data
 ftle_fig_handle=figure;
 pcolor(coord1_vec, coord2_vec, ftle_matrix)
-colorbar; axis square; shading flat; xlabel(labels(1)); ylabel(labels(2));
+colorbar; axis square; shading flat;
+xlabel(labels(1),'interpreter','latex');
+ylabel(labels(2),'interpreter','latex');
 
 if isfield(param_struc,'method') && strcmp(param_struc.method,'''FILE''')
-	title([sprintf('FILE %i intersection ',param_struc.n_iterations) title_string]);
+	title([sprintf('FILE %i intersection ',param_struc.n_iterations) title_string],...
+		'FontSize',font_size);
 else
-	title(['FTLE ' title_string]);
+	title(['FTLE ' title_string],'FontSize',font_size);
 end
-%% Set font size
-font_size=25;
-set(findall(ftle_fig_handle,'-property','FontSize'),'FontSize',font_size)
+% Adjust font_size
+% set(findall(ftle_fig_handle,'-property','FontSize'),'FontSize',font_size)
+set(gca,'FontSize',font_size) %FIXME test if it works for other cases
+xlhand = get(gca,'xlabel');
+set(xlhand,'fontsize',label_font_size)
+ylhand = get(gca,'ylabel');
+set(ylhand,'fontsize',label_font_size)
 %% plot gridfit
 if flags.gridfit
 	addpath(genpath('gridfitdir'));
