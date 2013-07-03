@@ -18,6 +18,7 @@ if any(isnan(first_tracer))
 	index=find(isnan(first_tracer));
 else
 	warning('Nothing to complete')
+	new_tr=tr;
 	return
 end
 switch index
