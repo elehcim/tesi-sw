@@ -55,6 +55,7 @@ if rp_hyp < jup_radius
 	e_hyp=NaN;
 	rp_hyp=NaN;
 	disp('!! tracer inside Jupiter !!')
+	return
 else
 vp_hyp=sqrt(GM_jup * (2/rp_hyp - 1/a_hyp));
 
