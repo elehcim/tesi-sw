@@ -45,7 +45,7 @@ X_dot = sqrt(GM_sun) * (e*sin(f)/(1+e*cos(f))*(x_0*cos(f)-y_0*sin(f))+...
 Y_dot = sqrt(GM_sun) * (e*sin(f)/(1+e*cos(f))*(x_0*sin(f)+y_0*cos(f))+...
 	(vx_syn-y_0)*sin(f)+(x_0+vy_syn)*cos(f));
 scatter(sqrt(X_dot.^2+Y_dot.^2),DV)
-xlabel('$|V|$ (km/s)','interpreter','latex','fontsize',35)
+xlabel('$|V|$ (..km/s.. TODO)','interpreter','latex','fontsize',35)
 ylabel('$\Delta v$ (km/s)','interpreter','latex','fontsize',35)
 %% All reaching points
 fi=openfig([folder 'MissionAnalysis/Prove per missione/9luglio/6 to_dv_grid/to_dv_grid_300.fig']);
