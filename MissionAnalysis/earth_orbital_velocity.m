@@ -12,10 +12,11 @@ y=0.1973;
 [theta,rho]=cart2pol(x,y);
 theta*180/pi
 
-vx_earth=-v_planet*sin(theta)
-vy_earth=v_planet*cos(theta)
+vx_earth=-v_planet*sin(theta+f)
+vy_earth=v_planet*cos(theta+f)
 
-c=sqrt(GM_sun/p)*(1+e_jup*cos(f))
+c=sqrt(GM_sun/p)*(1+e_jup*cos(f)) % f_dot*r
+% formulas back-transformations
 vx=vx_earth/c *cos(f)+vy_earth/c *sin(f)-x*(e_jup*sin(f))/(1+e_jup*cos(f))-y
 vy=vy_earth/c *cos(f)-vx_earth/c *sin(f)-y*(e_jup*sin(f))/(1+e_jup*cos(f))+x
 norm([vx  vy])
