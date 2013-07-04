@@ -1,5 +1,6 @@
 clearvars
 addpath('../Plot_ftle/')
+addpath('../Tracers/')
 % load data_100_grid_dv
 % load data_400_grid_dv
 load data_2500_grid_dv
@@ -20,18 +21,30 @@ end
 for j=1:n_tracers_in_SOI
 transfer_time_in_SOI(j)=traj_in_SOI{j,2}(end);
 end
-
-%% correlation dv vs. transfer time
+% correlation dv vs. transfer time
 DV=dv_total(logical(tracers_in_SOI));
 T=transfer_time_in_SOI;
-scatter(T,DV)
+scatter(T*11.86/(2*pi)*12,DV)
 xlabel('Transfer time (months)','interpreter','latex','fontsize',35)
 ylabel('$\Delta v$ (km/s)','interpreter','latex','fontsize',35)
-%% correlation between velocity vector and dv
+
+%% correlation between velocity vector and dv %TODO
+GM_sun=132712439935; % km^3/s^2
 for j=1:n_tracers_in_SOI
-Velocity(j)=sqrt(traj{j,1}(1,3)^2+(traj{j,1}(1,4))^2);
+vx_syn(j)=traj{j,1}(1,3);
+vy_syn(j)=traj{j,1}(1,4);
+Velocity_syn(j)=sqrt(traj{j,1}(1,3)^2+(traj{j,1}(1,4))^2);
 end
-scatter(Velocity,DV)
+
+e=tr.ecc;
+f=1.32;
+x_0=tr.x(1);
+y_0=tr.y(1);
+X_dot = sqrt(GM_sun) * (e*sin(f)/(1+e*cos(f))*(x_0*cos(f)-y_0*sin(f))+...
+	(vx_syn-y_0)*cos(f)-(x_0+vy_syn)*sin(f));%TODO
+Y_dot = sqrt(GM_sun) * (e*sin(f)/(1+e*cos(f))*(x_0*sin(f)+y_0*cos(f))+...
+	(vx_syn-y_0)*sin(f)+(x_0+vy_syn)*cos(f));
+scatter(sqrt(X_dot.^2+Y_dot.^2),DV)
 xlabel('$|V|$ (km/s)','interpreter','latex','fontsize',35)
 ylabel('$\Delta v$ (km/s)','interpreter','latex','fontsize',35)
 %% All reaching points
