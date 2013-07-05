@@ -52,11 +52,14 @@ for i=1:n_frames
 	% plot ftle
 	h(i)=figure('Color',[1 1 1]);
 	pcolor(coord1_vec, coord2_vec, ftle_matrix)
-	colorbar; shading flat; xlabel(labels(1)); ylabel(labels(2));
-	title(sprintf('FTLE %ix%i\n%s=%.3f %s=%.3f ecc=%.2f t=%.2f T=%.2f',...
-		n1,n2,my_fixed_var{1},param_struc.(my_fixed_var{1}),...
-		my_fixed_var{2},param_struc.(my_fixed_var{2}),...
-		param_struc.ecc, param_struc.t0, param_struc.DT));
+	%colorbar;
+	shading flat;
+	xlabel(labels(1),'interpreter','latex');
+	ylabel(labels(2),'interpreter','latex');
+% 	title(sprintf('FTLE %ix%i\n%s=%.3f %s=%.3f ecc=%.2f t=%.2f T=%.2f',...
+% 		n1,n2,my_fixed_var{1},param_struc.(my_fixed_var{1}),...
+% 		my_fixed_var{2},param_struc.(my_fixed_var{2}),...
+% 		param_struc.ecc, param_struc.t0, param_struc.DT));
 	%% Set font size
 	font_size=25;
 	set(findall(h(i),'-property','FontSize'),'FontSize',font_size)
