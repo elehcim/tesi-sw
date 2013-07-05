@@ -18,9 +18,9 @@ p_earth=a_earth*(1-ecc_earth^2);
 %tr=select_tracers
 % load zoom_sx_+_tracers_20130623-000205.mat
 
- tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
+tr=select_tracers([folder 'MissionAnalysis/Prove per missione/9luglio/'])
 
-%tr=tracers_grid_dv
+% tr=tracers_grid_dv
 
 %load zoom_sx_+_tracers_20130625-122232.mat % 3 tracers con un buon colpo
 % load zoom_sx_+_tracers_20130625-130810.mat % 7 tracers lungo il crinale
