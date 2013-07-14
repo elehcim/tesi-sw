@@ -1,4 +1,4 @@
-function cr_fig ( varargin )
+function plot_ftle ( varargin )
 % cr_fig plots FTLE and LCS on .fig files in the provided output dir.
 % Input parameters are:
 %
@@ -43,17 +43,8 @@ if ~exist('working_dir','var') %
 	% exception
 	
 	% Set user defaults
-	if ispc
-		%working_dir=[folder '../FTLE_Calculator/Examples/'];
-		working_dir=[folder 'FTLE_CPU/bin/WIN/'];
-	else
-		% working_dir=[folder 'C++/FTLE_CPU/bin/Linux/'];
-		% working_dir=[folder 'FTLE_CPU/bin/Linux/'];
-		working_dir=[folder 'MissionAnalysis/Prove per missione/9luglio/']; 
-		%working_dir=['/home/michele/Scrivania/1-giu/'];
-		% working_dir=[folder 'FTLE_CPU/bin/WIN/'];
-		% working_dir='/home/michele/Scrivania/tests/uitest/';
-	end
+	
+	%working_dir=...
 	
 	% If no defaults have been yet set, use the current directory
 	if ~exist('working_dir','var'), working_dir=pwd; end
