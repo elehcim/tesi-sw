@@ -1,0 +1,136 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\begin{document}
+\title{Set up Code::Blocks on Windows}
+\maketitle
+\section*{Set up Code::Blocks on Windows}
+In order to be able to compile our code on Windows, it is necessary to properly set up Code::Blocks (a cross-platform IDE) to use Windows compiler. It is also needed to obtain some external libraries to get the code to compile successfully.  Below are briefly reported all the required steps. Each of them will be explained in further details.
+\paragraph{Required steps}
+\begin{itemize}
+\item Install Visual Studio Express 2010
+\item Install Windows SDK
+\item Install Code::Blocks
+\item Set up Code::Blocks to work with MSVS compiler
+\item Get and link against Gsl libraries
+\item Get and link against Boost libraries
+\end{itemize}
+\section*{Install Visual Studio Express 2010}
+\label{Install Visual Studio}
+Visual Studio Express can be downloaded free of charge directly from Microsoft Website. It is not strictly required to set up Code::Blocks, but it includes the compiler and, above all, it will be useful to compile libraries.
+The installation should be straightforward.
+\section*{Install Windows SDK}
+\label{Install SDK}
+Windows SDK (Software Development Kit) is needed in order to properly set up Code::Blocks on Windows. The SDK can be downloaded from Microsoft Website depending on your own version of Windows. It is available both as a ISO image and a web installer.
+This installation could present some problems. Some of them are known issues and have a known solution:
+Most likely the installation will fail and a totally useless error message will be displayed, such as \emph{A problem occurred while installing selected Windows SDK components.} If it occurs, it is necessary to open the log file and search for an error code or return status.
+\begin{description}
+\item [error 5100:] Manually remove any ``Microsoft Visual C++ 2010 Redistributable" (both x86 and x64) and run the installation again;
+\item[error 1603:] Remove any SDK installation that might appear and run the installation again unchecking ``Visual c++ compiler" on the options page.
+\end{description}
+
+\section*{Install Code::Blocks}
+Code::Blocks is a cross-platform IDE (Integrated Development environment). The choice of this IDE is due to the possibility to use it both on Windows and Linux, eliminating the necessity of handling different projects depending on the used platform.
+
+Code::Blocks is an open-source IDE and a Windows installer can be downloaded from the official website. The installation should not present any problem.
+
+\section*{Set up Code::Blocks}
+On its first startup, Code::Blocks should detect already installed compilers. If Visual c++ compiler is not automatically detected, you'll have to configure it manually. Here is a brief guide to how to do it:
+
+Settings $\to$ Compiler: select ``Microsoft Visual C++ 2010" from the drop-down list.
+Select the ``Toolchain executables" tab. The Compiler's installation directory field must be filled with the path of the folder which contains the folder bin where the compiler is. For example: \emph{C: \textbackslash Program Files (x86) \textbackslash Microsoft Visual Studio 10.0 \textbackslash VC}.
+
+In the ``Program Files" tab, the following fields should be filled as below:
+\begin{description}
+\item[C compiler] cl.exe
+\item[C++ compiler] cl.exe
+\item[Linker for dynamic libs] link.exe
+\item[Linker for static libs] link.exe
+\item[Debugger] cdb (default)
+\item[Resource compiler] rc.exe
+\item[Make program] nmake.exe
+\end{description}
+
+In the ``Additional Path" tab, the following entries have to be added (They might need to be specialized for your own installation directory):\\
+
+C:\textbackslash Program Files (x86)\textbackslash Microsoft Visual Studio 10.0\textbackslash Common7\textbackslash IDE
+
+C:\textbackslash Program Files (x86)\textbackslash Microsoft SDKs\textbackslash Windows\textbackslash v7.0A
+
+C:\textbackslash Program Files (x86)\textbackslash Microsoft SDKs\textbackslash Windows\textbackslash v7.0A\textbackslash Bin\\
+
+Now switch to the ``Search directories" tab. Both in the ``Compiler" tab and ``Resource compiler" tab add the following entries:\\
+
+C:\textbackslash Program Files (x86)\textbackslash Microsoft Visual Studio 10.0\textbackslash VC\textbackslash include
+
+C:\textbackslash Program Files (x86)\textbackslash Microsoft SDKs\textbackslash Windows\textbackslash v7.0A\textbackslash Include\\
+
+
+In the ``Linker" tab add:\\
+
+C:\textbackslash Program Files (x86)\textbackslash Microsoft Visual Studio 10.0\textbackslash VC\textbackslash lib
+
+C:\textbackslash Program Files (x86)\textbackslash Microsoft SDKs\textbackslash Windows\textbackslash v7.0A\textbackslash Lib \\
+
+
+Now browse to the `Compiler setting" tab and, in the ``Other options" tab, add: \emph{\textbackslash EHsc}. This can be done either here or in the same tab accessed by right-clicking on the project and selecting ``Build options".
+\section*{Gsl Libraries\footnote{This guide is an extract from the  Brian Gladman's guide to build GSL libraries on Windows, which can be found at this url: \url{http://svn.icmb.utexas.edu/svn/repository/trunk/zpub/sdkpub/gsl-1.15/vs2010_port/gsl.vc10.readme.txt}}}
+GSL (GNU Scientific Library) is a c++ library released under the GNU General Public Licence. On the internet can be found some precompiled libraries for Windows, but one can download the source codes and compile them himself. Below there is a brief guide to how to do it.\\
+
+
+First, download the source codes from the \href{http://ftpmirror.gnu.org/gsl/}{official website} (last version at the time of writing is gsl-1.15.tar.gz). Unpack the archives until you get a gsl-1.15 folder which will be assumed to be your root directory from now on.\\
+
+Download the gsl-1.15.vc10.zip archives and unpack it in the root directory. This should add a folder named `build.vc10'. During the unpacking, overwrite any file you are asked for.\\
+
+Open the solution file \emph{gsl.lib.sln} with Visual Studio 2010. Build only the \emph{gslhdrs} project and run the resulting exe. \\
+
+Now run the \emph{gsllib} and \emph{cblaslib} projects in both Debug and Release 	 mode. \\
+
+Repeat last two steps for the \emph{gsl.dll.sln} solution to build dll libraries.
+Resulting built libraries will be placed respectively in the following directories under proper subdirectories:
+
+gsl-1.15\textbackslash build.vc10\textbackslash lib\textbackslash
+
+gsl-1.15\textbackslash build.vc10\textbackslash dll\textbackslash \\
+
+
+It could happen that some errors prevent the building of the libraries. Below there is a list of workarounds for known issues:
+
+In the \emph{rk4imp.c} file, replace any occurrence of sqrt(3)  with M\_SQRT3
+In the \emph{bspline.c} file, move variables declarations to the first part of the function: gsl\_bspline\_greville\_abscissa(size\_t i, gsl\_bspline\_workspace *w)\\
+
+
+Once the libraries have been built, Code::Blockshas to be set up to link against them. This can be done either in the general compiler setting or in the project's build options.
+Open the Build options of the project by right-clicking on it and browse to the Compiler Search Directories tab and add the path to the gsl-1.15 folder (the one we previously named the root directory). Then browse to the Linker settings tab and, in the Link libraries filed, add the path to the \emph{gsl.lib} and \emph{cblas.lib} (they should be inside the \textbackslash build.vc10\textbackslash lib folder under the proper subfolder)
+
+\section*{Boost libraries\footnote{This guide is an extract from the \href{http://www.boost.org/doc/libs/1_53_0/more/getting_started/windows.html}{Getting Started guide of the official Boost website}}}
+As we did with GSL libraries, below there is a guide to how to compile Boost libraries for Windows.
+
+Go to the directory tools\textbackslash build\textbackslash v2\textbackslash \\
+
+Run bootstrap.bat\\
+
+
+Run b2 install --prefix=PREFIX where PREFIX is the directory where you want Boost.Build to be installed\\
+
+
+Add PREFIX\textbackslash bin to your PATH environment variable.\\
+
+
+Change your current directory to the Boost root directory and invoke b2 as follows:
+
+b2 --build-dir=buil-directory toolset=toolset-name --build-type=complete stage\\
+
+Once the libraries have been built, Code::Blockshas to be set up to link against them. Right-click on the project and go to ``Build options".
+
+In the ``Linker settings" tab add the path to the program options library:
+
+\emph{libboost\_program\_options-vc100-mt-s-1\_53.lib}
+
+In the ``Search directories" tab, ``compiler" tab, add the path to the folder \emph{boost\_1\_53\_0}; in the ``linker" tab add the path to \emph{boost\_1\_53\_0\textbackslash lib} and \emph{boost\_1\_53\_0\textbackslash bin.v2\textbackslash libs}
+
+
+\end{document}
