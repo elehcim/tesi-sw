@@ -2,7 +2,7 @@
 #include <stdlib.h> // system
 #include <iostream> // cout
 char command[500];
-char matlab_path[1000]="addpath(genpath('../../Functions_library'));addpath(genpath('../../Plot_library'));"; // FIXME
+char matlab_path[1000]="addpath(genpath('../../Functions_library'));addpath(genpath('../../Plot_library'));"; // FIXME Take these paths from configuration file
 int launch_matlab(char *file_name)
 {
 /* TODO: In future start the standalone Matlab executable*/
