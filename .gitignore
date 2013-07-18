@@ -15,8 +15,9 @@ FTLE_Matlab/CPU/IntegratorC++/300.fig
 # Tracers
 Tracers/*.fig
 Tracers/*.mat
-#Tracers/plot_integrated_tracers/txt/
-Tracers/plot_integrated_tracers/
+Tracers/plot_integrated_tracers/txt/
+Tracers/plot_integrated_tracers/mat/
+#Tracers/plot_integrated_tracers/
 
 # Data file
 ris_int*
