@@ -13,7 +13,7 @@ double mu, ecc, x_min, x_max, y_min, y_max, vx_min, vx_max, vy_min, vy_max, e_mi
         dx, dy, dvx, dvy, de, d1, d2, L, abs_tol, rel_tol;
 int nx, ny, nvx, nvy, ne, n1, n2, n_tot, n_frames, n_cores, n_iterations;
 int flags[5], flags_t[5];
-int vis_count=0;        //Intero in barba a Calvino! (non ho potuto resistere :-) )
+int vis_count=0;        //Intero in barba a Calvino!
 int in_count=0;
 bool distance_flag, matlab_flag, name_flag=0;
 std::string field_type;
@@ -63,8 +63,6 @@ int configuration_load (std::string config_file)
 
     po::variables_map vm;
 
-    //std::string config_file;
-    //config_file="Configuration.cfg";
     std::ifstream ifs(config_file.c_str());
     store(parse_config_file(ifs, options), vm);
     notify(vm);
@@ -80,7 +78,7 @@ int configuration_load (std::string config_file)
     if (vm.count("parameters.t0")){t0=vm["parameters.t0"].as<double>();}
     if (vm.count("parameters.tf")){tf=vm["parameters.tf"].as<double>();}
     if (vm.count("parameters.DT")) {DT=vm["parameters.DT"].as<double>();}
-    else if (field_type=="FTLE"){std::cout<<"Integration interval missing!\n";    //FIXME Trovare nome più adatto o eliminare errore mettendo un default
+    else if (field_type=="FTLE"){std::cout<<"Integration interval missing!\n";
                                 return 1;}
     if(field_type=="FILE")
             {if (vm.count("parameters.n_iterations")) {n_iterations=vm["parameters.n_iterations"].as<int>();}}

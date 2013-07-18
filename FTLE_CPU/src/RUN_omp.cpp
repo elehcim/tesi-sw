@@ -34,8 +34,6 @@ using namespace boost::numeric::odeint;
 typedef double value_type;
 typedef std::vector< double > state_type;
 //FIXME l'aggiunta di custom_error_checker sballa tutto quando non voglio usare il thrust
-//typedef runge_kutta_cash_karp54< state_type > error_stepper_type;
-//typedef runge_kutta_dopri5< state_type > error_stepper_type;
 typedef runge_kutta_fehlberg78< state_type > error_stepper_type;
 
 /* Functions declarations */
@@ -48,16 +46,6 @@ int create_missing_vector(int id, double1d& x_0, double1d& y_0, double1d& vx_0, 
 int launch_matlab( char *file_name);
 int write_file(char* file_header, char* file_name, int id, double1d x_0, double1d y_0, double1d vx_0, double1d vy_0, double1d e_0, double4d ftle);
 
-/* The rhs of x' = f(x) */
-/*
-void er3bp_pow( const state_type &x , state_type &dxdt , const double  t  )
-{
-    dxdt[0]=x[2];
-    dxdt[1]=x[3];
-    dxdt[2]=2*x[3]+(x[0]-((1-mu)*(x[0]+mu))/pow((x[0]+mu)*(x[0]+mu)+x[1]*x[1],1.5)-(mu*(x[0]-1+mu))/pow((x[0]-1+mu)*(x[0]-1+mu)+x[1]*x[1],1.5))/(1+ecc*cos(t));
-    dxdt[3]=-2*x[2]+(x[1]-(1-mu)*x[1]/pow((x[0]+mu)*(x[0]+mu)+x[1]*x[1],1.5)-mu*x[1]/pow((x[0]-1+mu)*(x[0]-1+mu)+x[1]*x[1],1.5))/(1+ecc*cos(t));
-}
-*/
 /* The rhs of x' = f(x) */
 void er3bp( const state_type &x , state_type &dxdt , const double  t  )
 {
@@ -99,7 +87,6 @@ struct intersection_check
     {
         if (flags[0]==2)
         {
-            //std::cout<<"x\n";
             if ((x[0]>m_intersection && m_previous<m_intersection) || (x[0]<m_intersection && m_previous>m_intersection))
             {
                 m_count++;
@@ -184,7 +171,6 @@ int RUN (double t0)
     pp4d pf(nx, pp3d(ny, pp2d(n1, pp1d(n2) ) ));
 
     printf("sys dim=%i, %i, %i, %i\n", (int)ftle.size(), (int)ftle[1].size(), (int)ftle[1][1].size(), (int)ftle[1][1][1].size());
-//printf("id=%i\n",id);
 
     double1d x_0(nx);
     double1d y_0(ny);
@@ -198,7 +184,6 @@ int RUN (double t0)
     sprintf(file_header,"mu=%.12f\necc=%.12f\nDT=%.2f\nt0=%.2f\nn_frames=%i\nid=%i\nL=%.12f\nd1=%.12f\nd2=%.12f\n",mu,ecc,DT,t0,n_frames,id,L,d1,d2);
 
 //Create vectors of initial conditions
-//TODO create a function of these things
     //Create x_0
     /*
     if x is a visualization variable the initial condition vector can be computed from x_max, x_min and nx.
@@ -211,7 +196,6 @@ int RUN (double t0)
         strcat(file_name,s_temp);
         strcat(file_header,s_temp);
         strcat(file_header,"\n");
-        //printf("dx=%.4f\n",dx);
     }
     else
     {
@@ -230,17 +214,17 @@ int RUN (double t0)
             {
                 if (flags[2]==1)
                 {
-                    dx=dvx;    //FIXME dimensioni diverse!
+                    dx=dvx;
                 }
                 else
                 {
                     if (flags[3]==1)
                     {
-                        dx=dvy;    //FIXME dimensioni diverse!!
+                        dx=dvy;
                     }
                     else
                     {
-                        dx=de;    //FIXME dimensioni diverse!!
+                        dx=de;
                     }
                 }
             }
@@ -274,17 +258,17 @@ int RUN (double t0)
             {
                 if (flags[2]==1)
                 {
-                    dy=dvx;    //FIXME dimensioni diverse!
+                    dy=dvx;
                 }
                 else
                 {
                     if (flags[3]==1)
                     {
-                        dy=dvy;    //FIXME dimensioni diverse!!
+                        dy=dvy;
                     }
                     else
                     {
-                        dy=de;    //FIXME dimensioni diverse!!
+                        dy=de;
                     }
                 }
             }
@@ -312,13 +296,13 @@ int RUN (double t0)
             strcat(file_header,"\n");
             if (flags[0]==1)
             {
-                dvx=dx;    //FIXME dimensioni diverse!
+                dvx=dx;
             }
             else
             {
                 if (flags[1]==1)
                 {
-                    dvx=dy;    //FIXME dimensioni diverse!
+                    dvx=dy;
                 }
                 else
                 {
@@ -328,7 +312,7 @@ int RUN (double t0)
                     }
                     else
                     {
-                        dvx=de;    //FIXME dimensioni diverse!!
+                        dvx=de;
                     }
                 }
             }
@@ -356,13 +340,13 @@ int RUN (double t0)
             strcat(file_header,"\n");
             if (flags[0]==1)
             {
-                dvy=dx;    //FIXME dimensioni diverse!!
+                dvy=dx;
             }
             else
             {
                 if (flags[1]==1)
                 {
-                    dvy=dy;    //FIXME dimensioni diverse!
+                    dvy=dy;
                 }
                 else
                 {
@@ -372,7 +356,7 @@ int RUN (double t0)
                     }
                     else
                     {
-                        dvy=de;    //FIXME dimensioni diverse!!
+                        dvy=de;
                     }
                 }
             }
@@ -400,23 +384,23 @@ int RUN (double t0)
             strcat(file_header,"\n");
             if (flags[0]==1)
             {
-                de=dx;    //FIXME dimensioni diverse!!
+                de=dx;
             }
             else
             {
                 if (flags[1]==1)
                 {
-                    de=dy;    //FIXME dimensioni diverse!
+                    de=dy;
                 }
                 else
                 {
                     if (flags[2]==1)
                     {
-                        de=dvx;    //FIXME dimensioni diverse!!
+                        de=dvx;
                     }
                     else
                     {
-                        de=dvy;    //FIXME dimensioni diverse!!
+                        de=dvy;
                     }
                 }
             }
@@ -448,7 +432,6 @@ int RUN (double t0)
     clock_t start=clock();
     double in_step=1e-3;
     if (DT<0) {in_step=-1e-3;}
-    //omp_set_dynamic(0);
     int n_threads;
     time_t t_in=time(0);
     printf("number of threads=%i\n",n_cores);
@@ -459,10 +442,9 @@ int RUN (double t0)
     system("setterm -cursor off");
     #endif // _WIN32
     omp_set_nested(1);
-    //#pragma omp parallel num_threads(n_cores)
     #pragma omp parallel for num_threads (n_cores)
         for (int i=0; i<nx; i++)
-        { //if ( i % 50 == 0 ){std::cout << "i = " << i << '\n';}
+        {
             #pragma omp parallel for num_threads (n_cores)
             for (int j=0; j<ny; j++)
             {
@@ -511,7 +493,6 @@ int RUN (double t0)
                             }
                             else
                             {
-                                //std::cout<<"Via!\n";
                                 int intersection_count=0;
                                 double previous_value;
                                 double intersection_value;
@@ -521,13 +502,11 @@ int RUN (double t0)
                                 previous_value=Y_0;}
                                 if (distance_flag)
                                 {
-                                    //printf("Tf=%.2f\n",Tf);
                                     steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X, t0, Tf, in_step, collision_intersection_check(collision_flag,intersection_count, Tf, previous_value, intersection_value));
                                     if(intersection_count<n_iterations){failed_count++;}
                                 }
                                 else
                                 {
-                                    //std::cout<<"FILE no dist\n";
                                     steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X, t0, Tf, in_step, intersection_check(intersection_count, Tf, previous_value, intersection_value));
                                     if(intersection_count<n_iterations){failed_count++;}
                                 }
@@ -544,8 +523,6 @@ int RUN (double t0)
                             {
                                 done_count++;
                                 done_perc=((double)done_count/dim)*100;
-                                //std::cout<<done_perc<<"\n";
-                                //std::cout<<((int)floor(done_perc)) % 5<<"\n";
                                 if ( floor(done_perc) != floor(done_perc+0.1) )
                                 {
                                 printf("progress: %.1f %% \r",done_perc);
@@ -593,6 +570,7 @@ int RUN (double t0)
     if(failed_count){printf("%i points haven\'t reached %i intersections\n",failed_count,n_iterations);}
     sprintf(s_temp, "integration_time=%i\nn_cores=%i\n", t_tot, n_cores);
     strcat(file_header, s_temp);
+
     //FTLE computation
 
     gsl_matrix *dphi=gsl_matrix_alloc (4,4);
@@ -609,8 +587,6 @@ int RUN (double t0)
             {
                 for (int l=0; l<n2; l++)
                 {
-                    //ftle[i][j][k][l]=0;
-                    //std::cout<<i<<'\t'<<j<<'\t'<<k<<'\t'<<l<<'\n';
                     if (filter_ftle[i][j][k][l])
                     {
                         gsl_matrix_set(dphi,0,0,(pf[i+1][j][k][l].x-pf[i-1][j][k][l].x)/(2*dx));
@@ -728,10 +704,7 @@ int RUN (double t0)
     strcat(file_header,s_temp);
 
     write_file(file_header, file_name, id, x_0, y_0, vx_0, vy_0, e_0, ftle);
-    /* TODO
-        * Move launch MATLAB to main.
-        * In this case RUN must return file_name
-    */
+
     if (matlab_flag)
     {
         launch_matlab(file_name);

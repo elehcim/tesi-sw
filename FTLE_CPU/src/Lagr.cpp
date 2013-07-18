@@ -14,7 +14,6 @@ for (int i=0; i<5; i++)
     if (z[2*i+1]==0)
         {
         Lagrp.xl1=1-mu-z[2*i];
-        //std::cout << Lagrp.xl1 << '\n';
         }
     }
 c[0]=-mu; c[1]=-2*mu; c[2]=-mu; c[3]=3-2*mu; c[4]=3-mu; c[5]=1; //ATT!: order of coefficients (see above)
@@ -24,7 +23,6 @@ for (int i=0; i<5; i++)
         if (z[2*i+1]==0)
         {
         Lagrp.xl2=1-mu+z[2*i];
-        //std::cout << Lagrp.xl2 << '\n';
         }
     }
 c[0]=mu-1; c[1]=2*mu-2; c[2]=mu-1; c[3]=1+2*mu; c[4]=2+mu; c[5]=1; //ATT!: order of coefficients (see above)
@@ -34,7 +32,6 @@ for (int i=0; i<5; i++)
         if (z[2*i+1]==0)
         {
         Lagrp.xl3=-mu-z[2*i];
-        //std::cout << Lagrp.xl3 << '\n';
         }
     }
 Lagrp.xl4=0.5-mu;
