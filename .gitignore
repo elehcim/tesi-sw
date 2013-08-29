@@ -1,6 +1,7 @@
 # Backups
 *.asv
 *~
+.directory
 
 # Folders and files not desiderable
 var_*
@@ -63,3 +64,7 @@ obj/
 *.lai
 *.la
 *.a
+
+# Useful binaries
+!FTLE_CPU/bin/Linux/FTLE_CPU_x86_64
+!FTLE_CPU/bin/WIN/FTLE_CPU_WIN.exe
