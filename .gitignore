@@ -23,6 +23,7 @@ Tracers/plot_integrated_tracers/mat/
 # Data file
 ris_int*
 Results/
+FTLE_Matlab/OtherExamples/results/
 *data/
 *figs/
 data_for_the_history/
