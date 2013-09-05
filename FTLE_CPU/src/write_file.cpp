@@ -9,6 +9,11 @@
 #include "matrix.h" //For Matlab mx* commands
 #include "mat.h" // For Matlab mat* commands
 FILE *ftle_stream;
+MATFile *pmat;
+//mwSize dims[]={nx,nvx};
+mxArray *pa1;//,*pa2,*pa3;
+int status;
+
 /*
 Output file structure:
 
@@ -17,14 +22,48 @@ coordinate1   coordinate2   (coordinate3)  (coordinate4)    ftle
 Number of coordinates varies with the number of gridded variables. Coordinates always appear in this order: x, y, vx, vy, e.
 */
 
+int write_mat_simple(char* file_name)//, int id, double1d x_0,
+               //double1d y_0, double1d vx_0, double1d vy_0, double1d e_0, double4d ftle)
+{
+    MATFile *pmat;
+    pmat = matOpen(file_name, "w");
+    matClose(pmat);
+    printf("ciao");
 
+    }
+/*
+    if (id==12120 || id==12102)
+    {
+        // Create an empty mx Array
+        dynamicData = mxCalloc(nx, sizeof(x_0));
+        plhs[0] = mxCreateNumericMatrix(0, 0, mxDOUBLE_CLASS, mxREAL);
+        mxSetData(plhs[0], dynamicData); //TODO from: /usr/local/MATLAB/R2012b/extern/examples/refbook/arrayFillSetData.c
+
+        pa1 = mxCreateDoubleMatrix(nx,1,mxREAL);
+        //pa2 = mxCreateDoubleMatrix(nvx,1,mxREAL);
+        //pa3 = mxCreateNumericArray(nx*nvx,dims,mxDOUBLE_CLASS,mxREAL);
+        // Put the data into the mxArray
+        memcpy((void *)(mxGetPr(pa1)), &x_0, sizeof(x_0));
+        //memcpy((void *)(mxGetPr(pa2)), &vx_0, sizeof(vx_0));
+        //memcpy((void *)(mxGetPr(pa3)), &ftle, sizeof(ftle));
+        // Put the mxArray into the MATfile
+        status = matPutVariable(pmat, "LocalDouble", pa1);
+        if (status != 0) {
+            printf("%s :  Error using matPutVariable on line %d\n", __FILE__, __LINE__);
+            return(EXIT_FAILURE);
+        }
+        return 0;
+}
+return 0;
+}
+
+/*
 int write_mat(char* file_name, int id, double1d x_0,
                double1d y_0, double1d vx_0, double1d vy_0, double1d e_0, double4d ftle)
 {
 //TODO Add also header quantities
 
 //    Copy computed data to a MATfile directly accessible from Matlab.
-
 
     /*
     Template of the procedure:
@@ -37,7 +76,7 @@ int write_mat(char* file_name, int id, double1d x_0,
 
     // Put the mxArray into the MATfile
     status = matPutVariable(pmat, "LocalDouble", pa2);
-    */
+
     MATFile *pmat;
     mwSize dims[]={nx,nvx};
     mxArray *pa1, *pa2, *pa3;
@@ -87,7 +126,7 @@ int write_mat(char* file_name, int id, double1d x_0,
     }
     return 0;
 }
-
+*/
 int write_file(char* file_header, char* file_name, int id, double1d x_0,
                double1d y_0, double1d vx_0, double1d vy_0, double1d e_0, double4d ftle)
 {
