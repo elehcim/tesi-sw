@@ -17,8 +17,8 @@
 				</Compiler>
 				<Linker>
 					<Add option="-lgomp" />
-					<Add library="\usr\local\lib\libboost_program_options.a" />
-					<Add library="\usr\local\lib\libboost_program_options.so" />
+					<Add library="/usr/local/lib/libboost_program_options.a" />
+					<Add library="/usr/local/lib/libboost_program_options.so" />
 					<Add directory="/usr/local/cuda-5.0/lib64" />
 				</Linker>
 			</Target>
@@ -31,12 +31,17 @@
 					<Add option="-O3" />
 					<Add option="-g" />
 					<Add option="-fopenmp" />
+					<Add directory="/usr/local/MATLAB/R2012b/extern/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-lgomp" />
-					<Add library="\usr\local\lib\libboost_program_options.a" />
-					<Add library="\usr\local\lib\libboost_program_options.so" />
+					<Add option="-lmx" />
+					<Add option="-lmat" />
+					<Add option="-Wl,-rpath=/usr/local/MATLAB/R2012b/bin/glnxa64" />
+					<Add library="/usr/local/lib/libboost_program_options.a" />
+					<Add library="/usr/local/lib/libboost_program_options.so" />
 					<Add directory="/usr/local/cuda-5.0/lib64" />
+					<Add directory="/usr/local/MATLAB/R2012b/bin/glnxa64" />
 				</Linker>
 			</Target>
 			<Target title="Win">
@@ -52,9 +57,9 @@
 					<Add directory="C:/C++ libraries/boost_1_53_0" />
 				</Compiler>
 				<Linker>
-					<Add library="C:\C++ libraries\boost_1_53_0\bin.v2\libs\program_options\build\msvc-10.0\release\link-static\runtime-link-static\threading-multi\libboost_program_options-vc100-mt-s-1_53.lib" />
-					<Add library="C:\C++ libraries\gsl-1.15\build.vc10\lib\Win32\Release\gsl.lib" />
-					<Add library="C:\C++ libraries\gsl-1.15\build.vc10\lib\Win32\Release\cblas.lib" />
+					<Add library="C:/C++ libraries/boost_1_53_0/bin.v2/libs/program_options/build/msvc-10.0/release/link-static/runtime-link-static/threading-multi/libboost_program_options-vc100-mt-s-1_53.lib" />
+					<Add library="C:/C++ libraries/gsl-1.15/build.vc10/lib/Win32/Release/gsl.lib" />
+					<Add library="C:/C++ libraries/gsl-1.15/build.vc10/lib/Win32/Release/cblas.lib" />
 					<Add directory="C:/C++ libraries/boost_1_53_0/libs" />
 					<Add directory="C:/C++ libraries/boost_1_53_0/bin.v2/libs" />
 				</Linker>

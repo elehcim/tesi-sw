@@ -3,6 +3,11 @@
 #include <fstream>
 #include "global_var.hpp"
 #include "type_definitions.hpp"
+#include <string.h> // memcpy
+
+#include <stdlib.h> /* For EXIT_FAILURE, EXIT_SUCCESS */
+#include "matrix.h"
+#include "mat.h" // For Matlab mx* commands
 FILE *ftle_stream;
 /*
 Output file structure:
@@ -12,8 +17,77 @@ coordinate1   coordinate2   (coordinate3)  (coordinate4)    ftle
 Number of coordinates varies with the number of gridded variables. Coordinates always appear in this order: x, y, vx, vy, e.
 */
 
+int write_file(char* file_name, int id, double1d x_0,
+               double1d y_0, double1d vx_0, double1d vy_0, double1d e_0, double4d ftle)
+{
+//TODO Add also header quantities
+    /*
+    Copy computed data to a MATfile directly accessible from Matlab.
+    */
+
+    /*
+    Template of the procedure:
+    ----------------
+    // Create an empty mx Array
+    pa2 = mxCreateDoubleMatrix(3,3,mxREAL);
+
+    // Put the data into the mxArray
+    memcpy((void *)(mxGetPr(pa2)), (void *)data, sizeof(data));
+
+    // Put the mxArray into the MATfile
+    status = matPutVariable(pmat, "LocalDouble", pa2);
+    */
+    MATFile *pmat;
+    mwSize dims[]={nx,ny};
+    mxArray *pa1, *pa2, *pa3;
+    int status;
+
+    pmat = matOpen(file_name, "w");
+
+    if (id==11220 || id==11202 || id==11022)
+    {
+        // Create an empty mx Array
+        pa1 = mxCreateDoubleMatrix(nx,1,mxREAL);
+        pa2 = mxCreateDoubleMatrix(ny,1,mxREAL);
+        pa3 = mxCreateNumericArray(nx*ny,dims,mxDOUBLE_CLASS,mxREAL);
+        // Put the data into the mxArray
+        memcpy((void *)(mxGetPr(pa1)), &x_0, sizeof(x_0));
+        memcpy((void *)(mxGetPr(pa2)), &y_0, sizeof(y_0));
+        memcpy((void *)(mxGetPr(pa3)), &ftle, sizeof(ftle));
+        // Put the mxArray into the MATfile
+        status = matPutVariable(pmat, "LocalDouble", pa1);
+        if (status != 0) {
+            printf("%s :  Error using matPutVariable on line %d\n", __FILE__, __LINE__);
+            return(EXIT_FAILURE);
+        }
+        status = matPutVariable(pmat, "LocalDouble", pa2);
+        if (status != 0) {
+            printf("%s :  Error using matPutVariable on line %d\n", __FILE__, __LINE__);
+            return(EXIT_FAILURE);
+        }
+        status = matPutVariable(pmat, "LocalDouble", pa3);
+        if (status != 0) {
+            printf("%s :  Error using matPutVariable on line %d\n", __FILE__, __LINE__);
+            return(EXIT_FAILURE);
+        }
+        //fprintf(ftle_stream,"%.12f\t%.12f\t%.12f\n", x_0[i], y_0[j], ftle[i][j][1][1]);
+
+        mxDestroyArray(pa1);
+        mxDestroyArray(pa2);
+        mxDestroyArray(pa3);
+
+        if (matClose(pmat) != 0)
+        {
+            printf("Error closing file %s\n",file_name);
+            return(EXIT_FAILURE);
+        }
+        printf("Done\n");
+        return(EXIT_SUCCESS);
+    }
+}
+
 int write_file(char* file_header, char* file_name, int id, double1d x_0,
-                double1d y_0, double1d vx_0, double1d vy_0, double1d e_0, double4d ftle)
+               double1d y_0, double1d vx_0, double1d vy_0, double1d e_0, double4d ftle)
 {
     ftle_stream=fopen(file_name,"w");
     fprintf(ftle_stream,"%s",file_header);
@@ -355,7 +429,7 @@ int write_file(char* file_header, char* file_name, int id, double1d x_0,
             }
         }
     }
-fclose(ftle_stream);
-return 0;
+    fclose(ftle_stream);
+    return 0;
 }
 
