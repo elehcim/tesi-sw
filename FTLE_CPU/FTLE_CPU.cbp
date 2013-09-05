@@ -35,6 +35,8 @@
 				</Compiler>
 				<Linker>
 					<Add option="-lgomp" />
+					<Add option="-lgsl" />
+					<Add option="-lgslcblas" />
 					<Add option="-lmx" />
 					<Add option="-lmat" />
 					<Add option="-Wl,-rpath=/usr/local/MATLAB/R2012b/bin/glnxa64" />

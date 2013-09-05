@@ -6,8 +6,8 @@
 #include <string.h> // memcpy
 
 #include <stdlib.h> /* For EXIT_FAILURE, EXIT_SUCCESS */
-#include "matrix.h"
-#include "mat.h" // For Matlab mx* commands
+#include "matrix.h" //For Matlab mx* commands
+#include "mat.h" // For Matlab mat* commands
 FILE *ftle_stream;
 /*
 Output file structure:
@@ -17,13 +17,14 @@ coordinate1   coordinate2   (coordinate3)  (coordinate4)    ftle
 Number of coordinates varies with the number of gridded variables. Coordinates always appear in this order: x, y, vx, vy, e.
 */
 
-int write_file(char* file_name, int id, double1d x_0,
+
+int write_mat(char* file_name, int id, double1d x_0,
                double1d y_0, double1d vx_0, double1d vy_0, double1d e_0, double4d ftle)
 {
 //TODO Add also header quantities
-    /*
-    Copy computed data to a MATfile directly accessible from Matlab.
-    */
+
+//    Copy computed data to a MATfile directly accessible from Matlab.
+
 
     /*
     Template of the procedure:
@@ -38,21 +39,21 @@ int write_file(char* file_name, int id, double1d x_0,
     status = matPutVariable(pmat, "LocalDouble", pa2);
     */
     MATFile *pmat;
-    mwSize dims[]={nx,ny};
+    mwSize dims[]={nx,nvx};
     mxArray *pa1, *pa2, *pa3;
     int status;
 
     pmat = matOpen(file_name, "w");
 
-    if (id==11220 || id==11202 || id==11022)
+    if (id==12120 || id==12102)
     {
         // Create an empty mx Array
         pa1 = mxCreateDoubleMatrix(nx,1,mxREAL);
-        pa2 = mxCreateDoubleMatrix(ny,1,mxREAL);
-        pa3 = mxCreateNumericArray(nx*ny,dims,mxDOUBLE_CLASS,mxREAL);
+        pa2 = mxCreateDoubleMatrix(nvx,1,mxREAL);
+        pa3 = mxCreateNumericArray(nx*nvx,dims,mxDOUBLE_CLASS,mxREAL);
         // Put the data into the mxArray
         memcpy((void *)(mxGetPr(pa1)), &x_0, sizeof(x_0));
-        memcpy((void *)(mxGetPr(pa2)), &y_0, sizeof(y_0));
+        memcpy((void *)(mxGetPr(pa2)), &vx_0, sizeof(vx_0));
         memcpy((void *)(mxGetPr(pa3)), &ftle, sizeof(ftle));
         // Put the mxArray into the MATfile
         status = matPutVariable(pmat, "LocalDouble", pa1);
@@ -79,11 +80,12 @@ int write_file(char* file_name, int id, double1d x_0,
         if (matClose(pmat) != 0)
         {
             printf("Error closing file %s\n",file_name);
-            return(EXIT_FAILURE);
+            return 1;
         }
         printf("Done\n");
-        return(EXIT_SUCCESS);
+        return 0;
     }
+    return 0;
 }
 
 int write_file(char* file_header, char* file_name, int id, double1d x_0,
