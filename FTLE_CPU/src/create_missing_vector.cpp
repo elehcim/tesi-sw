@@ -12,6 +12,7 @@
 #endif // WIN32
 
 double Omega (double x, double y, double mu);
+bool inorout (double x_0, double y_0, double mu);
 
 int create_missing_vector(int id, double1d& x_0, double1d& y_0, double1d& vx_0, double1d& vy_0, double1d& e_0, bool4d& filter_integration, double Ki )
 {
@@ -28,11 +29,27 @@ int create_missing_vector(int id, double1d& x_0, double1d& y_0, double1d& vx_0, 
                     {
                         if (flags[2]==0) /* missing coordinate is vx */
                         {
-                            missing_coordinate=-copysign(1.00, y_0[j])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vy_0[k]*vy_0[k]);
+                            if (inorout(x_0[i], y_0[j], mu))
+                            {
+                                missing_coordinate=-copysign(1.00, y_0[j])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vy_0[k]*vy_0[k]);
+                            }
+                            else
+                            {
+                                missing_coordinate=copysign(1.00, y_0[j])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vy_0[k]*vy_0[k]);
+                            }
+
                         }
                         if (flags[3]==0) /* missing coordinate is vy */
                         {
-                            missing_coordinate=copysign(1.00, x_0[i])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vx_0[k]*vx_0[k]);
+                            if (inorout(x_0[i], y_0[j], mu))
+                            {
+                                missing_coordinate=copysign(1.00, x_0[i])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vx_0[k]*vx_0[k]);
+                            }
+                            else
+                            {
+                                missing_coordinate=-copysign(1.00, x_0[i])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vx_0[k]*vx_0[k]);
+                            }
+
                         }
                         if (flags[4]==0) /* missing coordinate is e */
                         {
@@ -85,11 +102,25 @@ int create_missing_vector(int id, double1d& x_0, double1d& y_0, double1d& vx_0, 
                     {
                         if (flags[2]==0) /* missing coordinate is vx */
                         {
-                            missing_coordinate=-copysign(1.00, y_0[j])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vy_0[k]*vy_0[k]);
+                           if (inorout(x_0[i], y_0[j], mu))
+                            {
+                                missing_coordinate=-copysign(1.00, y_0[j])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vy_0[k]*vy_0[k]);
+                            }
+                            else
+                            {
+                                missing_coordinate=copysign(1.00, y_0[j])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vy_0[k]*vy_0[k]);
+                            }
                         }
                         if (flags[3]==0) /* missing coordinate is vy */
                         {
-                            missing_coordinate=copysign(1.00, x_0[i])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vx_0[k]*vx_0[k]);
+                            if (inorout(x_0[i], y_0[j], mu))
+                            {
+                                missing_coordinate=copysign(1.00, x_0[i])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vx_0[k]*vx_0[k]);
+                            }
+                            else
+                            {
+                                missing_coordinate=-copysign(1.00, x_0[i])*sqrt(2*Omega(x_0[i],y_0[j],mu)/Ki+2*e_0[l]-vx_0[k]*vx_0[k]);
+                            }
                         }
                         if (flags[4]==0) /* missing coordinate is e */
                         {
