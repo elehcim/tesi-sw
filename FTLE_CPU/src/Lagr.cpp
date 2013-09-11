@@ -3,7 +3,8 @@
 #include <math.h>
 #include "Lagrangian_points.h"
 double *P5_roots(double *a);
-struct Lagrangian_points* Lagr(double mu)
+
+Lagrangian_points Lagr(double mu)
 {
 Lagrangian_points Lagrp;
 double c[6]={-mu, 2*mu, -mu, 3-2*mu, mu-3, 1}; // ATTENTION!: Coefficients are listed from the lowest to the highest order!!
@@ -41,7 +42,10 @@ Lagrp.yl2=0;
 Lagrp.yl3=0;
 Lagrp.yl4=sqrt(3.0)/2;
 Lagrp.yl5=-sqrt(3.0)/2;
-struct Lagrangian_points *p;
+return Lagrp;
+/*
+Lagrangian_points *p;
 p=&Lagrp;
 return p;
+*/
 }
