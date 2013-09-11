@@ -81,6 +81,7 @@
 		<Unit filename="src/create_missing_vector.cpp" />
 		<Unit filename="src/global_var.hpp" />
 		<Unit filename="src/id_calc.cpp" />
+		<Unit filename="src/inorout.cpp" />
 		<Unit filename="src/launch_matlab.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/type_definitions.hpp" />
