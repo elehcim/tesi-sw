@@ -46,14 +46,7 @@ int create_missing_vector(int id, double1d& x_0, double1d& y_0, double1d& vx_0, 
 int launch_matlab( char *file_name);
 int write_file(char* file_header, char* file_name, int id, double1d x_0, double1d y_0, double1d vx_0, double1d vy_0, double1d e_0, double4d ftle);
 
-/* The rhs of x' = f(x) */
-void er3bp( const state_type &x , state_type &dxdt , const double  t  )
-{
-    dxdt[0]=x[2];
-    dxdt[1]=x[3];
-    dxdt[2]=2*x[3]+(x[0]-((1-mu)*(x[0]+mu))/(((x[0]+mu)*(x[0]+mu)+x[1]*x[1])*sqrt((x[0]+mu)*(x[0]+mu)+x[1]*x[1]))-(mu*(x[0]-1+mu))/(((x[0]-1+mu)*(x[0]-1+mu)+x[1]*x[1])*sqrt((x[0]-1+mu)*(x[0]-1+mu)+x[1]*x[1])))/(1+ecc*cos(t));
-    dxdt[3]=-2*x[2]+(x[1]-(1-mu)*x[1]/(((x[0]+mu)*(x[0]+mu)+x[1]*x[1])*sqrt((x[0]+mu)*(x[0]+mu)+x[1]*x[1]))-mu*x[1]/(((x[0]-1+mu)*(x[0]-1+mu)+x[1]*x[1])*sqrt((x[0]-1+mu)*(x[0]-1+mu)+x[1]*x[1])))/(1+ecc*cos(t));
-}
+void er3bp( const state_type &x , state_type &dxdt , const double  t  );
 
 struct collision_check
 {
