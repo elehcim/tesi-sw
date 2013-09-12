@@ -69,10 +69,10 @@ int configuration_load (std::string config_file)
 
     // Load parameters
     if (vm.count("parameters.mu")) {mu=vm["parameters.mu"].as<double>();}
-    else    {std::cout<<"Mass parameter missing!";
+    else    {std::cout<<"Mass parameter missing!\n";
             return 1;}
     if (vm.count("parameters.ecc")) {ecc=vm["parameters.ecc"].as<double>();}
-    else    {std::cout<<"Eccentricity missing!";
+    else    {std::cout<<"Eccentricity missing!\n";
             return 1;}
     if (vm.count("parameters.field")){field_type=vm["parameters.field"].as<std::string>();}
     if (vm.count("parameters.t0")){t0=vm["parameters.t0"].as<double>();}
