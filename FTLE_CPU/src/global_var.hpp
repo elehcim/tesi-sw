@@ -1,6 +1,6 @@
 #include <string>
 //Parameters
-extern double mu, ecc, DT, t0, tf, abs_tol, rel_tol, L, d1, d2;
+extern double mu, ecc, DT, t0, tf, abs_tol, rel_tol, L, d1, d2, p, q;
 extern int n_frames, n_cores, n_iterations;
 extern std::string field_type;
 extern std::string custom_file_name;

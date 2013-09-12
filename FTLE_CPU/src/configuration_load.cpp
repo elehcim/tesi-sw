@@ -10,7 +10,7 @@
 
 namespace po = boost::program_options;
 double mu, ecc, x_min, x_max, y_min, y_max, vx_min, vx_max, vy_min, vy_max, e_min, e_max, X_0, Y_0, VX_0, VY_0, E_0, DT, t0, tf,
-        dx, dy, dvx, dvy, de, d1, d2, L, abs_tol, rel_tol;
+        dx, dy, dvx, dvy, de, d1, d2, L, M1, M2, Th, ve, Isp, M, p, q, abs_tol, rel_tol;
 int nx, ny, nvx, nvy, ne, n1, n2, n_tot, n_frames, n_cores, n_iterations;
 int flags[5], flags_t[5];
 int vis_count=0;        //Intero in barba a Calvino!
@@ -34,6 +34,9 @@ int configuration_load (std::string config_file)
         ("parameters.rel_tol", po::value<double>()->default_value(1e-6), "Integrator relative tolerance" )
         ("parameters.n_cores", po::value<int>()->default_value(1), "Max number of threads")
         ("parameters.file_name", po::value<std::string>(),"Output file name")
+        ("parameters.M1", po::value<double>()->default_value(1.9e30),"M1 in kg (default: Sun)")
+        ("parameters.M2", po::value<double>()->default_value(1.9e27),"M2 in kg (default: Jupiter)")
+        ("parameters.L", po::value<double>()->default_value(778547200), "distance between primaries in km (default: Sun-Jupiter)")
         ("vis.var.nx", po::value<int>(), "set nx")
         ("vis.var.ny", po::value<int>(), "set ny")
         ("vis.var.nvx", po::value<int>(), "set nvx")
@@ -59,6 +62,10 @@ int configuration_load (std::string config_file)
         ("distance.d1", po::value<double>(), "distance from first primary")
         ("distance.d2", po::value<double>(), "distance from second primary")
         ("matlab.flag", po::value<bool>()->default_value(0), "if true use matlab to plot results")
+        ("spacecraft.M", po::value<double>(), "Initial spacecraft mass in kg")
+        ("spacecraft.Th", po::value<double>(), "Thrust in N")
+        ("spacecraft.ve", po::value<double>(), "Effective Exhaust Velocity in m/s")
+        ("spacecraft.Isp", po::value<double>(), "Specific Impulse in s")
         ;
 
     po::variables_map vm;
@@ -340,5 +347,23 @@ if (vm.count("distance.d1")){d1=(vm["distance.d1"].as<double>())/L;}
 if (vm.count("distance.d2")){d2=(vm["distance.d2"].as<double>())/L;}
 /* Matlab */
 if (vm.count("matlab.flag")){matlab_flag=vm["matlab.flag"].as<bool>();}
+/*Spacecraft*/
+if (vm.count("spacecraft.M")){M=vm["spacecraft.M"].as<double>();}
+if (vm.count("spacecraft.Th")){Th=vm["spacecraft.Th"].as<double>();}
+if ((vm.count("spacecraft.ve")) && vm.count("spacecraft.Isp")){std::cout<<"Please specify either ve or Isp\n";
+                                                                return 1;}
+if (vm.count("spacecraft.ve")){ve=vm["spacecraft.ve"].as<double>();}
+if (vm.count("spacecraft.Isp")){Isp=vm["spacecraft.Isp"].as<double>();}
+
+if (vm.count("parameters.M1")){M1=vm["parameters.M1"].as<double>();}
+if (vm.count("parameters.M2")){M2=vm["parameters.M2"].as<double>();}
+if (vm.count("parameters.L")){L=vm["parameters.L"].as<double>();}
+double a, b;
+const double G=6.67384e-11;
+a=G*(M1+M2)/(L*L);
+b=sqrt(G*(M1+M2)/L);
+p=M/Th*a;
+q=b/ve;
+
     return 0;
 }

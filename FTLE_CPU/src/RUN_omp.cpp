@@ -47,6 +47,7 @@ int launch_matlab( char *file_name);
 int write_file(char* file_header, char* file_name, int id, double1d x_0, double1d y_0, double1d vx_0, double1d vy_0, double1d e_0, double4d ftle);
 
 void er3bp( const state_type &x , state_type &dxdt , const double  t  );
+void cr3bp_tt( const state_type &x , state_type &dxdt , const double  t  );
 
 struct collision_check
 {
@@ -477,7 +478,7 @@ int RUN (double t0)
                             {
                                 if (distance_flag)
                                 {
-                                    steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X, t0, Tf, in_step, collision_check(collision_flag, Tf));
+                                    steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), cr3bp_tt, X, t0, Tf, in_step, collision_check(collision_flag, Tf));
                                 }
                                 else    //FIXME check for actual number of intersection for each point
                                 {
