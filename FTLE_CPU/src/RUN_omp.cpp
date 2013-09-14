@@ -175,7 +175,7 @@ int RUN (double t0)
     char s_temp[50]="";
     sprintf(file_name,"ftle_ell_mu=%.4f_ecc=%.2f",mu,ecc);
     char file_header[300]=""; //String that will be printed in the file
-    sprintf(file_header,"mu=%.12f\necc=%.12f\nDT=%.2f\nt0=%.2f\nn_frames=%i\nid=%i\nL=%.12f\nd1=%.12f\nd2=%.12f\n",mu,ecc,DT,t0,n_frames,id,L,d1,d2);
+    sprintf(file_header,"mu=%.12f\necc=%.12f\nDT=%.2f\nt0=%.2f\nn_frames=%i\nid=%i\nL=%.12f\nd1=%.12f\nd2=%.12f\nTh=%.12f\n",mu,ecc,DT,t0,n_frames,id,L,d1,d2,Th);
 
 //Create vectors of initial conditions
     //Create x_0
@@ -482,7 +482,7 @@ int RUN (double t0)
                                 }
                                 else    //FIXME check for actual number of intersection for each point
                                 {
-                                    steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X, t0, Tf, in_step);
+                                    steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), cr3bp_tt, X, t0, Tf, in_step);
                                 }
                             }
                             else
