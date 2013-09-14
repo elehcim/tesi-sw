@@ -65,6 +65,11 @@
 		</Compiler>
 		<Unit filename="src/Lagr.cpp" />
 		<Unit filename="src/Lagrangian_points.h" />
+		<Unit filename="src/Model_CR3BP_tangential_thrust.cpp" />
+		<Unit filename="src/Model_ER3BP.cpp" />
+		<Unit filename="src/Model_ER3BP_tangential_thrust.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="src/Omega.cpp" />
 		<Unit filename="src/P5_roots.cpp" />
 		<Unit filename="src/Phase_point.h" />
