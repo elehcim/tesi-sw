@@ -358,12 +358,24 @@ if (vm.count("spacecraft.Isp")){Isp=vm["spacecraft.Isp"].as<double>();}
 if (vm.count("parameters.M1")){M1=vm["parameters.M1"].as<double>();}
 if (vm.count("parameters.M2")){M2=vm["parameters.M2"].as<double>();}
 if (vm.count("parameters.L")){L=vm["parameters.L"].as<double>();}
-double a, b;
+double a, b, time_limit,t_unit_circ, mass_fraction_consumed;
 const double G=6.67384e-11;
-a=G*(M1+M2)/(L*L);
-b=sqrt(G*(M1+M2)/L);
+a=G*(M1+M2)/(L*1000*L*1000);
+b=sqrt(G*(M1+M2)/(L*1000));
 p=M/Th*a;
 q=b/ve;
+t_unit_circ=sqrt(L*L*L*1000000000/(G*(M1+M2)));
+mass_fraction_consumed=1-Th/(ve*M)*DT*t_unit_circ;
+time_limit=(M*ve/Th)/t_unit_circ;//non-dimensional
+if (time_limit<DT)
+{
+    std::cout<<"Not enough fuel\n";
+    return 1;
+}
+printf("Thrust = %f\n", Th);
+printf("time limit = %f\n",time_limit);
+printf("mass fraction consumed = %f\n",mass_fraction_consumed);
+printf("p=%f\t q=%f\n",p,q);
 
     return 0;
 }
