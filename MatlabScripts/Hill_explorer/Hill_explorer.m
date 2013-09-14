@@ -55,8 +55,8 @@ function Hill_explorer_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for Hill_explorer
 handles.output = hObject;
 
-handles.mu=9.537e-4;
-handles.ecc=0.048775;
+handles.mu=9.537e-4; % Jupiter
+handles.ecc=0.048775; % Jupiter
 % TODO move these in the draw function
 points=2000;
 bb=1.5; % Bounding box
