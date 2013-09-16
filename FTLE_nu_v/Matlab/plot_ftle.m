@@ -47,7 +47,7 @@ if ~exist('working_dir','var') %
 	%working_dir=...
 	
 	% If no defaults have been yet set, use the current directory
-	if ~exist('working_dir','var'), working_dir=pwd; end
+	if ~exist('working_dir','var'), working_dir=[pwd '../']; end
 end
 
 %% Load file in case it's not provided as input
