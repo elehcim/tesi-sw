@@ -26,6 +26,9 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-lgsl" />
+					<Add option="-lm" />
+					<Add option="-lgslcblas" />
 				</Linker>
 			</Target>
 		</Build>
