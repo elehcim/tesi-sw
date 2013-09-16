@@ -65,6 +65,7 @@
 		</Compiler>
 		<Unit filename="src/Lagr.cpp" />
 		<Unit filename="src/Lagrangian_points.h" />
+		<Unit filename="src/Model_ER3BP.cpp" />
 		<Unit filename="src/Omega.cpp" />
 		<Unit filename="src/P5_roots.cpp" />
 		<Unit filename="src/Phase_point.h" />
