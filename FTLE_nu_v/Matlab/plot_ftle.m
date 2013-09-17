@@ -85,7 +85,7 @@ if ~iscell(file_name)
 	[param_struc,file_content]=parse_file(path_to_file);
 	plot_2d( param_struc, file_content, flags)
 	%% Plot multiple files
-else
+else %TODO
 	plot_multiple_files(file_name, data_dir, flags)
 end
 end
