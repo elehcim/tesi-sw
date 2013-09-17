@@ -21,7 +21,10 @@ typedef runge_kutta_fehlberg78< state_type > error_stepper_type;
 
 void er3bp( const state_type &x , state_type &dxdt , const double  t  );
 
-int create_integration_points(double x, double y, double vx, double vy, double dx, double dy, double dvx, double dvy, double1d& X1, double1d& X2, double1d& X3, double1d& X4, double1d& X5, double1d& X6, double1d& X7, double1d& X8);
+int create_integration_points(double x, double y, double vx, double vy,
+                            double dx, double dy, double dvx, double dvy,
+                            double1d& X1, double1d& X2, double1d& X3, double1d& X4,
+                            double1d& X5, double1d& X6, double1d& X7, double1d& X8);
 
 int create_ic_vector (double c_max, double c_min, int nc, double1d& c0);
 
@@ -48,7 +51,7 @@ int main ()
         t0=calc_t0(nu);
         //printf("nu = %.6f \n",nu);
         //printf("t0 = %.6f\n",t0);
-        printf("%i\n",i);
+        printf("%i\n",i); //why it dows not work if I add \r?
         for (int j=0; j<n_v; j++)
         {
             double v,x,y,vx,vy,v_E_adim,v_tilde;
