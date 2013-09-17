@@ -42,15 +42,22 @@ int main ()
 
     double2d ftle (n_nu, double1d(n_v,0) );
 
-    for (int i=0; i<1; i++)
-    {
+    for (int i=0; i<n_nu; i++)
+    {   double nu;
+        nu=nu_0[i];
+        t0=calc_t0(nu);
+        //printf("nu = %.6f \n",nu);
+        //printf("t0 = %.6f\n",t0);
+        printf("%i\n",i);
         for (int j=0; j<n_v; j++)
         {
-            double nu,v,x,y,vx,vy,v_E_adim;
-            nu=nu_0[i];
-            t0=calc_t0(nu);
-            //v_E_adim=v_E/(sqrt(GM)*(1+ecc*cos(t0))/(a_jup*(1-ecc*ecc)));
-            v=v_0[j];//+v_E_adim;
+            double v,x,y,vx,vy,v_E_adim,v_tilde;
+            v_tilde=sqrt(GM*(1+ecc*cos(t0))/(a_jup*(1-ecc*ecc)));
+            v_E_adim=v_E/v_tilde;
+            v=v_0[j]+v_E_adim;
+            //printf("v_tilde  = %.6f \n",v_tilde);
+            //printf("v_E_adim = %.6f \n",v_E_adim);
+            //printf("v = %.6f\n",v);
             x=R*cos(nu);
             y=R*sin(nu);
             vx=-v*sin(nu);
@@ -58,16 +65,14 @@ int main ()
 
             create_integration_points(x, y, vx, vy, dx, dy, dvx, dvy, X1, X2, X3, X4, X5, X6, X7, X8);
 
-
-
-            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X1, t0, T, in_step);
-            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X2, t0, T, in_step);
-            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X3, t0, T, in_step);
-            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X4, t0, T, in_step);
-            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X5, t0, T, in_step);
-            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X6, t0, T, in_step);
-            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X7, t0, T, in_step);
-            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X8, t0, T, in_step);
+            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X1, t0, t0+T, in_step);
+            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X2, t0, t0+T, in_step);
+            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X3, t0, t0+T, in_step);
+            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X4, t0, t0+T, in_step);
+            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X5, t0, t0+T, in_step);
+            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X6, t0, t0+T, in_step);
+            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X7, t0, t0+T, in_step);
+            steps=integrate_adaptive(make_controlled(abs_tol, rel_tol, error_stepper_type()), er3bp, X8, t0, t0+T, in_step);
 
             gsl_matrix *dphi=gsl_matrix_alloc (4,4);
             gsl_matrix_set(dphi,0,0,(X1[0]-X2[0])/(2*dx));
@@ -107,7 +112,6 @@ int main ()
                 {
                 printf("progress: %.1f %% \r",done_perc);
                 }*/
-            printf("%i,%i\r",i,j);
         }
     }
 
