@@ -123,9 +123,10 @@ int main ()
     char file_name[150]=""; //String that will become the file name
     char s_temp[50]="";
     sprintf(file_name,"ftle_nuv_n=%ix%i_DT=%.1f",n_nu,n_v,T);
-    char file_header[10000]=""; //String that will be printed in the file
+    char file_header[1000]=""; //String that will be printed in the file
     sprintf(file_header,"mu=%.12f\necc=%.12f\nDT=%.2f\nn_nu=%i\nn_v=%i\n",mu,ecc,T,n_nu,n_v);
-    /* Write t0 to the file*/
+    /*
+     *  //Write t0 to the file
     sprintf(s_temp,"t0=[");
     strcat(file_header,s_temp);
     for (int i=0; i<n_nu-1; i++)
@@ -135,6 +136,7 @@ int main ()
     }
     sprintf(s_temp,"%.4f]\n",t0_vec[n_nu-1]); //print last t0
     strcat(file_header,s_temp);
+    */
     sprintf(s_temp,"### Beginning of data ###\n");
     strcat(file_header,s_temp);
     strcat(file_name,".txt");

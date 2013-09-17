@@ -10,12 +10,8 @@ else
 			feof(fid))
 		tmp=textscan(line,'%s %f','Delimiter','=');
 		if isempty(tmp{1,2}) % If it's a string
-			if strcmp(tmp{1,1},'t0') %if it is t0, so it is a vector
-				eval(['param_struc.' line])
-			else
 				param{nl}=textscan(line,'%s %s','Delimiter','=');
 				param_struc.(param{nl}{1}{1})=param{nl}{2}{1};
-			end
 		else
 			param{nl}=textscan(line,'%s %f','Delimiter','=');
 			param_struc.(param{nl}{1}{1})=param{nl}{2};
