@@ -125,12 +125,15 @@ int main ()
     char file_header[300]=""; //String that will be printed in the file
     sprintf(file_header,"mu=%.12f\necc=%.12f\nDT=%.2f\nn_nu=%i\nn_v=%i\n",mu,ecc,T,n_nu,n_v);
     /* Write t0 to the file*/
-    sprintf(file_header,"t0=[");
-    for (int i=0; i<n_nu; i++)
+    sprintf(s_temp,"t0=[");
+    strcat(file_header,s_temp);
+    for (int i=0; i<n_nu-1; i++)
     {
-    sprintf(file_header,".12f,",t0_vec[i]);
+        sprintf(s_temp,"%.4f,",t0_vec[i]);
+        strcat(file_header,s_temp);
     }
-    sprintf(file_header,"]\n");
+    sprintf(s_temp,"%.4f]\n",t0_vec[n_nu-1]); //print last t0
+    strcat(file_header,s_temp);
     sprintf(s_temp,"### Beginning of data ###\n");
     strcat(file_header,s_temp);
     strcat(file_name,".txt");
