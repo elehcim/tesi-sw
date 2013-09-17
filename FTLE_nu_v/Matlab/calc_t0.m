@@ -10,8 +10,8 @@ while i<10
 	E=E_new;
 	E_new=E+(M-E+ecc*sin(E))/(1-ecc*cos(E));
 	i=i+1;
-	fprintf('E    =   %.10e \n',E);
-	fprintf('E_new=   %.10e \n',E_new);
+	%fprintf('E    =   %.10e \n',E);
+	%fprintf('E_new=   %.10e \n',E_new);
 	if E_new-E<eps
 		break
 	end
