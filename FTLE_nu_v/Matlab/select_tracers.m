@@ -60,7 +60,6 @@ hold off
 
 %% Add other parameters
 tr.n_tracers=n;
-tr.t0=param_struc.t0;
 tr.T=param_struc.DT;
 tr.mu=param_struc.mu;
 tr.ecc=param_struc.ecc;
@@ -75,14 +74,13 @@ GM_sun=132712439935; %km^3/s^2
 GM=GM_jup+GM_sun;
 v_E=29.783; % km/s
 
-
 %% translate nu,v to x,y,vx,vy
 nu=xy(1,:);
-% Compute v_tilde for each nu
+% Compute t0 for each nu and compute v_tilde as a consequence
 omega=2*pi/(365*24*3600); % earth omega in rad/s
 for i=1:n
-	t0=calc_t0(nu(i),GM,tr.ecc,omega,a_jup);
-	v_tilde=sqrt(GM*(1+tr.ecc*cos(t0))/(a_jup*(1-tr.ecc^2)));
+	tr.t0(i)=calc_t0(nu(i),GM,tr.ecc,omega,a_jup);
+	v_tilde=sqrt(GM*(1+tr.ecc*cos(tr.t0(i)))/(a_jup*(1-tr.ecc^2)));
 	v_E_adim=v_E/v_tilde;
 	% Add Earth velocity to v
 	v(i)=xy(2,i)+v_E_adim;
@@ -94,7 +92,6 @@ for i=1:n
 	tr.vx(1,i)=-v(i)*sin(nu(i));
 	tr.vy(1,i)=v(i)*cos(nu(i));
 end
-
 
 %% save data
 time_stamp=clock;
