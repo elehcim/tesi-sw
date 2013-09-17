@@ -37,7 +37,6 @@ int main ()
     create_ic_vector(v_max, v_min, n_v, v_0);
     //printf("li ho creati\n");
 
-
     gsl_matrix *C=gsl_matrix_alloc (4,4);
     double l_max;
     gsl_vector *eval = gsl_vector_alloc (4);
@@ -52,7 +51,9 @@ int main ()
         t0_vec[i]=t0;
         //printf("nu = %.6f \n",nu);
         //printf("t0 = %.6f\n",t0);
-        printf("%i\n",i); //why it dows not work if I add \r?
+        std::cout << "\r" << i << std::flush;
+        //printf("\r%i  ",i); //why it dows not work if I add \r?
+        //std::flush;
         for (int j=0; j<n_v; j++)
         {
             double v,x,y,vx,vy,v_E_adim,v_tilde;
@@ -122,7 +123,7 @@ int main ()
     char file_name[150]=""; //String that will become the file name
     char s_temp[50]="";
     sprintf(file_name,"ftle_nuv_n=%ix%i_DT=%.1f",n_nu,n_v,T);
-    char file_header[300]=""; //String that will be printed in the file
+    char file_header[10000]=""; //String that will be printed in the file
     sprintf(file_header,"mu=%.12f\necc=%.12f\nDT=%.2f\nn_nu=%i\nn_v=%i\n",mu,ecc,T,n_nu,n_v);
     /* Write t0 to the file*/
     sprintf(s_temp,"t0=[");
