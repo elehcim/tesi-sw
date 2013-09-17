@@ -40,8 +40,8 @@ label_font_size=35;
 %% Create labels
 labels = {'$\nu$','$V$'};
 %% Write generic part of the title
-title_string=(sprintf('%ix%i\n ecc=%.2f t=%.2f T=%.2f',...
-	n1,n2,param_struc.ecc, param_struc.t0, param_struc.DT));
+title_string=(sprintf('%ix%i\n ecc=%.2f T=%.2f',...
+	n1,n2,param_struc.ecc, param_struc.DT));
 %% Plot data
 ftle_fig_handle=figure;
 pcolor(coord1_vec, coord2_vec, ftle_matrix)
