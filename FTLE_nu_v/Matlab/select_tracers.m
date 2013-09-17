@@ -23,7 +23,7 @@ if ~exist('fig_file','var')
 			('*.fig','Select FTLE figure',working_dir);
 	else
 		[fig_file, PathName]=uigetfile...
-			('*.fig','Select FTLE figure');
+			('*.fig','Select FTLE figure',[pwd '/../']);
 	end
 	fig_file=fullfile(PathName,fig_file);
 end
@@ -33,7 +33,7 @@ fig=openfig(fig_file);
 
 %% Get the param_struc structure in the figure UserData field.
 set(gcf, 'Renderer', 'zbuffer');
-param_struc=get(fig,'UserData');
+param_struc=get(fig,'UserData')
 % %% get image coordinates
 % h=get(gca);
 % coord_x=get(h.XLabel,'String');
@@ -58,42 +58,37 @@ while but == 1
 end
 hold off
 
-%% compute initial point
-dist_Sun_Jup = 778547200;	% km
-r_earth_orbit = 149600000;	% km
-R = r_earth_orbit/dist_Sun_Jup;
-
-[x,y]=nu2xy(nu,R);
-vx=-v*sin(nu);
-vy=v*cos(nu);
-%% Add missing coordinates
-vars={'x','y','vx','vy','e'};
-nvars={'nx','ny','nvx','nvy','ne'};
-vars_0={'x_0','y_0','vx_0','vy_0','e_0'};
-tr.n_tracers=n;
-tr.x=nan(1,n);
-tr.y=nan(1,n);
-tr.vx=nan(1,n);
-tr.vy=nan(1,n);
-tr.e=nan(1,n);
-c=1;
-for i=1:5
-	if isfield(param_struc,nvars{i})
-		tr.(vars{i})=xy(c,:);
-		c=c+1;
-	elseif isfield(param_struc,vars_0{i})
-		tr.(vars{i})=param_struc.(vars_0{i})*ones(1,n);
-	end
-end
-
 %% Add other parameters
+tr.n_tracers=n;
 tr.t0=param_struc.t0;
 tr.T=param_struc.DT;
 tr.mu=param_struc.mu;
 tr.ecc=param_struc.ecc;
 
-%% Reconstruct missing coordinate
-tr=complete_tracers(tr);
+%% Compute earth velocity
+a_jup=778412027; %km
+GM_jup=126711995; %km^3/s^2
+GM_sun=132712439935; %km^3/s^2
+GM=GM_jup+GM_sun;
+v_E=29.783; % km/s
+v_tilde=sqrt(GM*(1+tr.ecc*cos(tr.t0))/(a_jup*(1-tr.ecc^2)));
+v_E_adim=v_E/v_tilde;
+
+%% compute initial points
+dist_Sun_Jup = 778547200;	% km
+r_earth_orbit = 149600000;	% km
+R = r_earth_orbit/dist_Sun_Jup;
+nu=xy(1,:);
+
+% Add Earth velocity to v
+v=xy(2,:)+v_E_adim;
+
+[tr.x,tr.y]=nu2xy(nu,R);
+for i=1:n
+	tr.vx(1,i)=-v(i)*sin(nu(i));
+	tr.vy(1,i)=v(i)*cos(nu(i));
+end
+
 
 %% save data
 time_stamp=clock;
