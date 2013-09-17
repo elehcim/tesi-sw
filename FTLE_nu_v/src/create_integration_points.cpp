@@ -42,4 +42,6 @@ int create_integration_points(double x, double y, double vx, double vy, double d
     X8[1]=y;
     X8[2]=vx;
     X8[3]=vy-dvy;
+
+    return 0;
 }
