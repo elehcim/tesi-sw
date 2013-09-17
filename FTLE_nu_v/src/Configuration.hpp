@@ -4,14 +4,14 @@ double pi=3.141592653589793;
 
 double mu=9.537e-4;
 double ecc=0.04839;
-double T=5;
+double T=3;
 double R=0.19;
 double nu_min=0;
 double nu_max=10;
-int n_nu=501;
+int n_nu=200;
 double v_min=0.45;
 double v_max=0.6;
-int n_v=501;
+int n_v=200;
 // dx=0.01 is ~1/20 Earth-Sun distance
 // dvx=0.1 is ~1/20 Earth orbital speed
 double dx=0.001;
@@ -28,6 +28,7 @@ double v_E=29.783; //km/s
 
 double1d nu_0(n_nu);
 double1d v_0(n_v);
+double1d t0_vec(n_nu);
 double1d X1(4);
 double1d X2(4);
 double1d X3(4);
