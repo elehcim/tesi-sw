@@ -49,6 +49,7 @@ int main ()
     {   double nu;
         nu=nu_0[i];
         t0=calc_t0(nu);
+        t0_vec[i]=t0;
         //printf("nu = %.6f \n",nu);
         //printf("t0 = %.6f\n",t0);
         printf("%i\n",i); //why it dows not work if I add \r?
@@ -120,9 +121,16 @@ int main ()
 
     char file_name[150]=""; //String that will become the file name
     char s_temp[50]="";
-    sprintf(file_name,"ftle_nuv_mu=%.4f_ecc=%.2f_n=%ix%i_DT=%f",mu,ecc,n_nu,n_v,T);
+    sprintf(file_name,"ftle_nuv_n=%ix%i_DT=%.1f",n_nu,n_v,T);
     char file_header[300]=""; //String that will be printed in the file
-    sprintf(file_header,"mu=%.12f\necc=%.12f\nDT=%.2f\nt0=%.2f\nn_nu=%i\nn_v=%i\n",mu,ecc,T,t0,n_nu,n_v);
+    sprintf(file_header,"mu=%.12f\necc=%.12f\nDT=%.2f\nn_nu=%i\nn_v=%i\n",mu,ecc,T,n_nu,n_v);
+    /* Write t0 to the file*/
+    sprintf(file_header,"t0=[");
+    for (int i=0; i<n_nu; i++)
+    {
+    sprintf(file_header,".12f,",t0_vec[i]);
+    }
+    sprintf(file_header,"]\n");
     sprintf(s_temp,"### Beginning of data ###\n");
     strcat(file_header,s_temp);
     strcat(file_name,".txt");
