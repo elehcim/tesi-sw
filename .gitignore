@@ -29,6 +29,11 @@ FTLE_Matlab/OtherExamples/results/
 data_for_the_history/
 tracers.txt
 
+FTLE_nu_v/*.txt
+FTLE_nu_v/*.fig
+FTLE_nu_v/Matlab/*.mat
+FTLE_nu_v/Time_dependence/
+
 # Executables
 *bin/
 
