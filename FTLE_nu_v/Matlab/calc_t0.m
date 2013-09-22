@@ -1,4 +1,7 @@
 function f = calc_t0( nu,GM,ecc,omega, a_jup )
+%% Riscalo nu per avere f relativo al perielio di Giove
+alpha_p = 90.4200*pi/180; %rad
+nu=nu-alpha_p;
 delta_t=nu/omega;
 eps=0.001;
 n=sqrt(GM/(a_jup^3));

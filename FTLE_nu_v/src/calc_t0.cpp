@@ -2,9 +2,12 @@
 #include <fstream>
 double calc_t0(double nu)
 {
-    double M, E, E_new, delta_t, eps, n, f, omega;
+    double M, E, E_new, delta_t, eps, n, f, omega, alpha;
     //double delta_t, eps, n, f, omega;
     extern double ecc, a_jup, GM, pi;
+    alpha=90.42*pi/180.0; // (rad) Angular distance beetwen jupiter and earth at Jupiter's perihelion
+    nu=nu-alpha;
+
     omega=2*pi/(365*24*3600);
     delta_t=nu/omega;
     eps=0.001;
@@ -32,6 +35,6 @@ double calc_t0(double nu)
         f=f+2*pi;
         printf("ho cambiato segno a f\n");
     }
-    //printf("f=%f\n",f);
+    printf("f=%f\n",f);
     return f;
 }
