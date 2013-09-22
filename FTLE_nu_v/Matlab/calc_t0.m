@@ -3,7 +3,7 @@ function f = calc_t0( nu,GM,ecc,omega, a_jup )
 alpha_p = 90.4200*pi/180; %rad
 nu=nu-alpha_p;
 delta_t=nu/omega;
-eps=0.001;
+eps=0.0001;
 n=sqrt(GM/(a_jup^3));
 M=n*(delta_t);
 E=M;
@@ -15,7 +15,7 @@ while i<10
 	i=i+1;
 	%fprintf('E    =   %.10e \n',E);
 	%fprintf('E_new=   %.10e \n',E_new);
-	if E_new-E<eps
+	if abs(E_new-E)<eps
 		break
 	end
 end

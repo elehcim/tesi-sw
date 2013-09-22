@@ -25,7 +25,7 @@ double calc_t0(double nu)
         //printf("E    =   %.10e \n",E);
         //printf("E_new=   %.10e \n",E_new);
     }
-    while(E_new-E>eps && i<10);
+    while(fabs(E_new-E)>eps && i<10);
     //f=2*atan(sqrt((1+ecc)/(1-ecc))*tan(E_new/2));
     //printf("2st arg = %.10e \n",sqrt(1-ecc)*cos(E_new/2));
     //printf("1nd arg = %.10e \n",sqrt(1+ecc)*sin(E_new/2));
