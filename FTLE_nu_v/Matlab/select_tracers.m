@@ -73,11 +73,11 @@ GM_jup=126711995; %km^3/s^2
 GM_sun=132712439935; %km^3/s^2
 GM=GM_jup+GM_sun;
 v_E=29.783; % km/s
+omega=2*pi/(365*24*3600); % earth omega in rad/s
 
 %% translate nu,v to x,y,vx,vy
 nu=xy(1,:);
 % Compute t0 for each nu and compute v_tilde as a consequence
-omega=2*pi/(365*24*3600); % earth omega in rad/s
 for i=1:n
 	tr.t0(i)=calc_t0(nu(i),GM,tr.ecc,omega,a_jup);
 	v_tilde=sqrt(GM*(1+tr.ecc*cos(tr.t0(i)))/(a_jup*(1-tr.ecc^2)));
