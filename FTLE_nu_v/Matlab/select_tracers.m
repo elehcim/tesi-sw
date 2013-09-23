@@ -87,10 +87,10 @@ for i=1:n
 end
 
 %% fill tr
-[tr.x,tr.y]=nu2xy(nu,R);
+[tr.x,tr.y]=nu2xy(nu-tr.t0,R);
 for i=1:n
-	tr.vx(1,i)=-v(i)*sin(nu(i));
-	tr.vy(1,i)=v(i)*cos(nu(i));
+	tr.vx(1,i)=-v(i)*sin(nu(i)-tr.t0(i));
+	tr.vy(1,i)=v(i)*cos(nu(i)-tr.t0(i));
 end
 
 %% save data

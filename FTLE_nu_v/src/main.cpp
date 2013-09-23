@@ -45,9 +45,10 @@ int main ()
     double2d ftle (n_nu, double1d(n_v,0) );
 
     for (int i=0; i<n_nu; i++)
-    {   double nu;
-        nu=nu_0[i];
-        t0=calc_t0(nu);
+    {   double nu_syn;
+        //nu=nu_0[i];
+        t0=calc_t0(nu_0[i]);
+        nu_syn=nu_0[i]-t0; // to transform to the synodic ref. sys.
         t0_vec[i]=t0;
         //printf("nu = %.6f \n",nu);
         //printf("t0 = %.6f\n",t0);
@@ -63,10 +64,10 @@ int main ()
             //printf("v_tilde  = %.6f \n",v_tilde);
             //printf("v_E_adim = %.6f \n",v_E_adim);
             //printf("v = %.6f\n",v);
-            x=R*cos(nu);
-            y=R*sin(nu);
-            vx=-v*sin(nu);
-            vy=v*cos(nu);
+            x=R*cos(nu_syn);
+            y=R*sin(nu_syn);
+            vx=-v*sin(nu_syn);
+            vy=v*cos(nu_syn);
 
             create_integration_points(x, y, vx, vy, dx, dy, dvx, dvy, X1, X2, X3, X4, X5, X6, X7, X8);
 
