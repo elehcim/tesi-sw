@@ -77,6 +77,9 @@ omega=2*pi/(365*24*3600); % earth omega in rad/s
 
 %% translate nu,v to x,y,vx,vy
 nu=xy(1,:);
+giorni=(max(nu)-min(nu))/(2*pi)*365;
+fprintf('stai studiando un intervallo di %.2f giorni\n', giorni);
+
 % Compute t0 for each nu and compute v_tilde as a consequence
 for i=1:n
 	tr.t0(i)=calc_t0(nu(i),GM,tr.ecc,omega,a_jup);
