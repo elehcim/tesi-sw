@@ -30,7 +30,8 @@ lambda_earth_9Jup=W_earth_9Jul+nu_earth_9_Jul;
 
 alpha_9Jul=lambda_earth_9Jup-lambda_jup_9Jul % Torna con il delta_angle dello script positions_09Jul13
 
-nu=alpha_9Jul*pi/180; % rad
-giri=3;
-fprintf('nu della terra corrispondente al 9 luglio 2013 è %.2f\n',nu+giri*2*pi)
-calc_t0(alpha_9Jul*pi/180+giri*2*pi,GM,ecc,omega, a_jup)*180/pi
+nu=(alpha_9Jul+nu_jup_9Jul)*pi/180; % rad
+giri=2; % infatti dal 2011 al 2013 sono 2 anni!!!
+fprintf('nu della terra corrispondente al 9 luglio 2013 è %.2f rad\n',nu+giri*2*pi)
+nu_jup_9Jul=75.42
+calc_t0(nu+giri*2*pi,GM,ecc,omega, a_jup)*180/pi
